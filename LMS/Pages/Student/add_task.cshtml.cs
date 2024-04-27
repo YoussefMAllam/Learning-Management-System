@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace LMS.Pages
+namespace LMS.Pages.Student
 {
     public class add_taskModel : PageModel
     {
@@ -15,7 +15,7 @@ namespace LMS.Pages
         public IActionResult OnPost()
         {
             AddTasks.Add(new_task);
-            return (RedirectToPage("/studenthome", new { tasks = AddTasks }));
+            return RedirectToPage("/studenthome", new { tasks = AddTasks });
 
         }
     }

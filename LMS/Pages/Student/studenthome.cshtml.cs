@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace LMS.Pages
+namespace LMS.Pages.Student
 {
     public class studenthomeModel : PageModel
     {
-        [BindProperty (SupportsGet =true)]
+        [BindProperty(SupportsGet = true)]
         public string Studentname { get; set; }
 
         [BindProperty(SupportsGet = true)]
