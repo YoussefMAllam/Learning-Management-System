@@ -1,0 +1,23 @@
+﻿@page
+@model LMS.Pages.studentfeedbackModel
+@{
+    Layout = "Shared/studentlayout.cshtml";
+}
+
+
+<div class="text-center">
+    <h1>Feedback</h1>
+</div>
+<form>
+    <input type="text" placeholder="Course Code" size="20" class="form-control"/> <br />
+    <input type="text" placeholder="Semester" size="20" class="form-control"/> <br />
+    <input type="text" placeholder="Instructor" size="20" class="form-control"/> <br />
+    <br />
+    <div class="row d-flex justify-content-center">
+        <textarea rows="10" cols="75" placeholder="Comment" class="input-group-text"></textarea> 
+    </div>
+    <br />
+    <div class="text-center"> <input type="submit" class="btn bg-primary text-light" /></div>
+   
+</form>
+
