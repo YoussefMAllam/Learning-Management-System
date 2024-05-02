@@ -3,27 +3,176 @@
 @{
     Layout = "studentlayout.cshtml";
 }
-<h1>Welcome name</h1> 
-<div class="text-center">
-<form method="post">
-    <table class="table table-hover table-responsive table-striped">
-        <thead class="bg-black text-light">
-        <th>#</th>
-        <th>Task</th>
-        <th>Completion</th>
-        </thead>
-        @{
-            for (int i = 0; i < Model.tasks.Count; i++)
-            {
-                <tr>
-                    <td>@(i + 1)</td>
-                    <td>@Model.tasks[i]</td>
-                    <td><button name="id" class="bg-success text-light btn " value=@i>Done</button></td>
-                </tr>
-            }
+<style>
+    body {
+        background-color: #f0f8ff;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        margin-top: 50px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+        font-size: 36px;
+        color: black;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Add this new class */
+    .modal-link {
+        color: #000000;
+        text-decoration: none;
+        font-family: Arial, sans-serif;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 800px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color:white;
+            text-decoration: none;
+            cursor: pointer;
         }
 
-    </table>
-    <input type="submit" name="id" value="Add Task" class="bg-primary text-light btn" />
-</form>
+    .text-center {
+        text-align: center;
+    }
+
+    .table {
+        margin: 0 auto;
+        width: 80%;
+        max-width: 800px;
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 5px 15px ;
+    }
+
+        .table th {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table td {
+            padding: 10px;
+        }
+
+    .btn {
+        background-color: #6495ed;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #87ceeb;
+    }
+
+        .btn-primary:hover {
+            background-color: #6495ed;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    textarea.form-control {
+        resize: vertical;
+    }
+</style>
+<div class="container">
+    <h1>Welcome name</h1>
+    <div class="text-center">
+        <form method="post">
+            <table class="table table-hover table-responsive table-striped">
+                <thead class="bg-black text-light">
+                <th>#</th>
+                <th>Task</th>
+                <th>Completion</th>
+                </thead>
+             
+
+            </table>
+            <a class="modal-link-button" id="add-task-link">Add task</a>
+        </form>
+    </div>
 </div>
+<div id="add-task-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add Task</h2>
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="task-name">Task name:</label>
+                <input type="text" class="form-control" id="task-name" name="task" required>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Get the modal and link elements
+    var addTaskModal = document.getElementById("add-task-modal");
+    var addTaskLink = document.getElementById("add-task-link");
+
+    // When the user clicks on the link, open the modal
+    addTaskLink.onclick = function () {
+        addTaskModal.style.display = "block";
+    };
+
+    // Get the <span> element that closes the modal
+    var span = addTaskModal.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        addTaskModal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == addTaskModal) {
+            addTaskModal.style.display = "none";
+        }
+    };
+</script>

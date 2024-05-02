@@ -71,6 +71,17 @@
                 text-decoration: underline;
             }
     </style>
+    <script>
+        function redirectToHomePage(event) {
+            event.preventDefault(); // Prevent form submission
+            var role = document.querySelector('input[name="role"]:checked').id;
+            if (role === 'student') {
+                window.location.href = 'student/studenthome';
+            } else if (role === 'teacher') {
+                window.location.href = 'teacher/teacherhome';
+            }
+        }
+    </script>
 </head>
 <div class="container">
     <div class="row justify-content-center">
@@ -106,7 +117,7 @@
                                 <label class="custom-control-label" for="rememberMe">Remember me</label>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="submit" class="btn btn-primary" onclick="event.preventDefault(); redirectToHomePage(event);">Login</button>
                         <a href="#" class="btn btn-link">Forgot password?</a>
                         <p>Don't have an account? <a href="#">Register here</a></p>
                     </form>

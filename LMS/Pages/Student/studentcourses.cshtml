@@ -3,8 +3,19 @@
 @{
     Layout = "studentlayout.cshtml";
 }
-
 <style>
+    body {
+        background-color: #f0f8ff;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Add this new class */
+    .modal-link {
+        color: #000000;
+        text-decoration: none;
+        font-family: Arial, sans-serif;
+    }
+
     .modal {
         display: none;
         position: fixed;
@@ -13,7 +24,7 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0,0,0,0.5);
+        background-color: rgba(0, 0, 0, 0.5);
     }
 
     .modal-content {
@@ -24,7 +35,7 @@
         width: 80%;
         max-width: 800px;
         border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
 
     .close {
@@ -40,49 +51,93 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .table {
+        margin: 0 auto;
+        width: 80%;
+        max-width: 800px;
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+        .table th {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table td {
+            padding: 10px;
+        }
+
+    .btn {
+        background-color: #6495ed;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #87ceeb;
+    }
+
+        .btn-primary:hover {
+            background-color: #6495ed;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    textarea.form-control {
+        resize: vertical;
+
 </style>
+
+
 <div class="text-center">
     <table class="table table-borderless">
         <tr>
             <th>
-                <a href="course">Course Name:</a>
+                CIE 202</>
             </th>
-            
         </tr>
         <tr>
             <th>
-                <a href="course">Material:</a>
+                Material </>
             </th>
             <td colspan="3">
-                <"add the link">
+                
             </td>
         </tr>
         <tr>
             <th>
-                <a id="feedback-link">Give Feedback:</a>
+                <a class="modal-link-button" id="feedback-link">Give Feedback</a>
             </th>
             <td colspan="3">
-               
             </td>
         </tr>
         <tr>
             <th>
-                <a id="submit-assignment-link">Assignments:</a>
+                <a class="modal-link-button" id="submit-assignment-link">Submit Assignments</a>
             </th>
             <td colspan="3">
-               
             </td>
         </tr>
-        <tr>
-            <th>
-                <a href="thread">Open Thread:</a>
-            </th>
-            <td colspan="3">
-               
-            </td>
-        </tr>
+        
     </table>
-   
+
     <div id="feedback-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -96,79 +151,79 @@
                     <label for="feedback-description">Description:</label>
                     <textarea class="form-control" id="feedback-description" name="description" rows="3" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="button-container">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </form>
         </div>
     </div>
+
     <div id="submit-assignment-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>submit assignment</h2>
+            <h2>Submit Assignment</h2>
             <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="assignment name">Title:</label>
-                    <input type="text" class="form-control" id="assignment name" name="title" required>
+                    <label for="assignment-name">Title:</label>
+                    <input type="text" class="form-control" id="assignment-name" name="title" required>
                 </div>
                 <div class="form-group">
-                    <label for="link upload">Description:</label>
-                    <textarea class="form-control" id="link upload" name="link" rows="3" required></textarea>
+                    <label for="link-upload">Description:</label>
+                    <textarea class="form-control" id="link-upload" name="link" rows="3" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="button-container">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </form>
         </div>
     </div>
 
-    @section scripts {
-        <script>
-            // Get the modal and link elements
-            var modal = document.getElementById("feedback-modal");
-            var link = document.getElementById("feedback-link");
-           
+    <script>
+        // Get the modal and link elements
+        var modal = document.getElementById("feedback-modal");
+        var link = document.getElementById("feedback-link");
 
-            // When the user clicks on the link, open the modal
-            link.onclick = function() {
-                modal.style.display = "block";
-            }
+        // When the user clicks on the link, open the modal
+        link.onclick = function () {
+            modal.style.display = "block";
+        };
 
-            // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("close")[0];
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
 
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        };
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
                 modal.style.display = "none";
             }
+        };
 
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
+        var assignmentModal = document.getElementById("submit-assignment-modal");
+        var assignmentLink = document.getElementById("submit-assignment-link");
 
+        // When the user clicks on the link, open the assignment modal
+        assignmentLink.onclick = function () {
+            assignmentModal.style.display = "block";
+        };
 
-            var assignmentModal = document.getElementById("submit-assignment-modal");
-            var assignmentLink = document.getElementById("submit-assignment-link");
+        // Get the <span> element that closes the assignment modal
+        var assignmentSpan = document.getElementsByClassName("close")[1];
 
-            // When the user clicks on the link, open the assignment modal
-            assignmentLink.onclick = function () {
-                assignmentModal.style.display = "block";
-            }
+        // When the user clicks on <span> (x), close the assignment modal
+        assignmentSpan.onclick = function () {
+            assignmentModal.style.display = "none";
+        };
 
-            // Get the <span> element that closes the assignment modal
-            var assignmentSpan = document.getElementsByClassName("close")[1];
-
-            // When the user clicks on <span> (x), close the assignment modal
-            assignmentSpan.onclick = function () {
+        // When the user clicks anywhere outside of the assignment modal, close it
+        window.onclick = function (event) {
+            if (event.target == assignmentModal) {
                 assignmentModal.style.display = "none";
             }
-
-            // When the user clicks anywhere outside of the assignment modal, close it
-            window.onclick = function (event) {
-                if (event.target == assignmentModal) {
-                    assignmentModal.style.display = "none";
-                }
-            }
-        </script>
-    }
-    }
+        };
+    </script>
 </div>
