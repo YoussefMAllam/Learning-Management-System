@@ -201,19 +201,29 @@
     @section scripts {
         <script>
             // Get the modal and link elements
-            var modal = document.getElementById("addstudent-modal");
-            var link = document.getElementById("addstudent-link");
+            var studentModal = document.getElementById("addstudent-modal");
+            var studentLink = document.getElementById("addstudent-link");
 
-
-            // When the user clicks on the link, open the modal
-            link.onclick = function () {
-                modal.style.display = "block";
+            // When the user clicks on the link, open the student modal
+            studentLink.onclick = function () {
+                studentModal.style.display = "block";
             }
 
-            // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("close")[0];
+            // Get the <span> element that closes the student modal
+            var studentSpan = document.getElementsByClassName("close")[0];
 
-            // When the user clicks on <span> (
+            // When the user clicks on <span> (x), close the student modal
+            studentSpan.onclick = function () {
+                studentModal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the student modal, close it
+            window.onclick = function (event) {
+                if (event.target == studentModal) {
+                    studentModal.style.display = "none";
+                }
+            }
+
             var assignmentModal = document.getElementById("add-assignment-modal");
             var assignmentLink = document.getElementById("add-assignment-link");
 
@@ -225,7 +235,6 @@
             // Get the <span> element that closes the assignment modal
             var assignmentSpan = document.getElementsByClassName("close")[1];
 
-
             // When the user clicks on <span> (x), close the assignment modal
             assignmentSpan.onclick = function () {
                 assignmentModal.style.display = "none";
@@ -236,28 +245,28 @@
                 if (event.target == assignmentModal) {
                     assignmentModal.style.display = "none";
                 }
-
             }
-            var anouncementModal = document.getElementById("addanouncement-modal");
-            var anouncementLink = document.getElementById("addanouncement-link");
+
+            var announcementModal = document.getElementById("addanouncement-modal");
+            var announcementLink = document.getElementById("addanouncement-link");
 
             // When the user clicks on the link, open the announcement modal
-            anouncementLink.onclick = function () {
-                anouncementModal.style.display = "block";
+            announcementLink.onclick = function () {
+                announcementModal.style.display = "block";
             }
 
             // Get the <span> element that closes the announcement modal
-            var anouncementSpan = document.getElementsByClassName("close")[2];
+            var announcementSpan = document.getElementsByClassName("close")[2];
 
             // When the user clicks on <span> (x), close the announcement modal
-            anouncementSpan.onclick = function () {
-                anouncementModal.style.display = "none";
+            announcementSpan.onclick = function () {
+                announcementModal.style.display = "none";
             }
 
             // When the user clicks anywhere outside of the announcement modal, close it
             window.onclick = function (event) {
-                if (event.target == anouncementModal) {
-                    anouncementModal.style.display = "none";
+                if (event.target == announcementModal) {
+                    announcementModal.style.display = "none";
                 }
             }
         </script>

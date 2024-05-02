@@ -1,0 +1,306 @@
+﻿@page
+@model adminhomeModel
+@{
+    Layout = "adminlayout";
+}
+<style>
+    body {
+        background-color: #f0f8ff;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Add this new class */
+    .modal-link {
+        color: #000000;
+        text-decoration: none;
+        font-family: Arial, sans-serif;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 800px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .table {
+        margin: 0 auto;
+        width: 80%;
+        max-width: 800px;
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+        .table th {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table td {
+            padding: 10px;
+        }
+
+    .btn {
+        background-color: #6495ed;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #87ceeb;
+    }
+
+        .btn-primary:hover {
+            background-color: #6495ed;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    textarea.form-control {
+        resize: vertical;
+    }
+</style>
+
+<div class="text-center">
+    <table class="table table-borderless">
+        
+       
+        <tr>
+            <th>
+                <a id="addstudent-link">Add student</a>
+            </th>
+            <td colspan="3">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <a id="add-instructor-link">Add Instructor</a>
+            </th>
+            <td colspan="3">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <a id="removestudent-link"> remove students</a>
+            </th>
+            <td colspan="3">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <a id="removeinstructor-link"> Remove Instructor</a>
+            </th>
+            <td colspan="3">
+            </td>
+        </tr>
+    </table>
+
+    <div id="addstudent-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add student</h2>
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="student-name">Student Name</label>
+                    <input type="text" class="form-control" id="student-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="student-id">Student ID</label>
+                    <textarea class="form-control" id="student-id" name="id" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+
+
+            </form>
+        </div>
+    </div>
+
+    <div id="add-instructor-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>add instructor</h2>
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="add-instructor-ID">ID</label>
+                    <input type="text" class="form-control" id="assignment-name" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="link-upload">Name</label>
+                    <textarea class="form-control" id="name" name="name" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div id="removestudent-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>remove student</h2>
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="anouncement">Student Name</label>
+                    <input type="text" class="form-control" id="Student name" name="namr" required>
+                </div>
+                <div class="form-group">
+                    <label for="link-upload">Student ID</label>
+                    <textarea class="form-control" id="id" name="id" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div id="removeinstructor-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>remove Instructor</h2>
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="anouncement">Instructor Name</label>
+                    <input type="text" class="form-control" id="Student name" name="namr" required>
+                </div>
+                <div class="form-group">
+                    <label for="link-upload">Instructor ID</label>
+                    <textarea class="form-control" id="id" name="id" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        var studentModal = document.getElementById("addstudent-modal");
+        var studentLink = document.getElementById("addstudent-link");
+
+        // When the user clicks on the link, open the student modal
+        studentLink.onclick = function () {
+            studentModal.style.display = "block";
+        }
+
+        // Get the <span> element that closes the student modal
+        var studentSpan = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the student modal
+        studentSpan.onclick = function () {
+            studentModal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the student modal, close it
+        window.onclick = function (event) {
+            if (event.target == studentModal) {
+                studentModal.style.display = "none";
+            }
+        }
+
+        var assignmentModal = document.getElementById("add-instructor-modal");
+        var assignmentLink = document.getElementById("add-instructor-link");
+
+        // When the user clicks on the link, open the assignment modal
+        assignmentLink.onclick = function () {
+            assignmentModal.style.display = "block";
+        }
+
+        // Get the <span> element that closes the assignment modal
+        var assignmentSpan = document.getElementsByClassName("close")[1];
+
+        // When the user clicks on <span> (x), close the assignment modal
+        assignmentSpan.onclick = function () {
+            assignmentModal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the assignment modal, close it
+        window.onclick = function (event) {
+            if (event.target == assignmentModal) {
+                assignmentModal.style.display = "none";
+            }
+        }
+
+        var announcementModal = document.getElementById("removestudent-modal");
+        var announcementLink = document.getElementById("removestudent-link");
+
+        // When the user clicks on the link, open the announcement modal
+        announcementLink.onclick = function () {
+            announcementModal.style.display = "block";
+        }
+
+        // Get the <span> element that closes the announcement modal
+        var announcementSpan = document.getElementsByClassName("close")[2];
+
+        // When the user clicks on <span> (x), close the announcement modal
+        announcementSpan.onclick = function () {
+            announcementModal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the announcement modal, close it
+        window.onclick = function (event) {
+            if (event.target == announcementModal) {
+                announcementModal.style.display = "none";
+            }
+        }
+
+        var instructorModal = document.getElementById("removeinstructor-modal");
+        var instructorLink = document.getElementById("removeinstructor-link");
+
+        // When the user clicks on the link, open the instructor modal
+        instructorLink.onclick = function () {
+            instructorModal.style.display = "block";
+        }
+
+        // Get the <span> element that closes the instructor modal
+        var instructorSpan = document.getElementsByClassName("close")[3];
+
+        // When the user clicks on <span> (x), close the instructor modal
+        instructorSpan.onclick = function () {
+            instructorModal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the instructor modal, close it
+        window.onclick = function (event) {
+            if (event.target == instructorModal) {
+                instructorModal.style.display = "none";
+            }
+        }
+    </script>
+</div>

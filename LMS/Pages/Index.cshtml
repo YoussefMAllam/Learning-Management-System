@@ -79,6 +79,8 @@
                 window.location.href = 'student/studenthome';
             } else if (role === 'teacher') {
                 window.location.href = 'teacher/teacherhome';
+            } else if (role === 'admin') {
+                window.location.href = 'admin/adminhome';
             }
         }
     </script>
@@ -110,6 +112,10 @@
                                 <input type="radio" id="teacher" name="role" class="custom-control-input">
                                 <label class="custom-control-label" for="teacher">Teacher</label>
                             </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="admin" name="role" class="custom-control-input">
+                                <label class="custom-control-label" for="admin">admin</label>
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="custom-control custom-checkbox">
@@ -119,7 +125,7 @@
                         </div>
                         <button type="submit" class="btn btn-primary" onclick="event.preventDefault(); redirectToHomePage(event);">Login</button>
                         <a href="#" class="btn btn-link">Forgot password?</a>
-                        <p>Don't have an account? <a href="#">Register here</a></p>
+                        <p>Continue as a guest<a href="#"></p>
                     </form>
                 </div>
             </div>
