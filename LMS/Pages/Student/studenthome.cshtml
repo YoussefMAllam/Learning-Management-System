@@ -4,32 +4,67 @@
     Layout = "studentlayout.cshtml";
 }
 <style>
-    
     body {
         background-color: #f0f8ff;
         font-family: Arial, sans-serif;
     }
 
     .container {
-        margin-top: 50px;
+        max-width: 800px;
+        margin: 0 auto;
         padding: 20px;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     }
 
     h1 {
-        font-size: 36px;
-        color: black;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        color: #6495ed;
+        margin-bottom: 30px;
+        font-size: 32px;
     }
 
-    /* Add this new class */
-    .modal-link {
-        color: #000000;
-        text-decoration: none;
-        font-family: Arial, sans-serif;
+    .button-container {
+        text-align: right;
+        margin-bottom: 20px;
     }
+
+    .table {
+        width: 100%;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+        .table th,
+        .table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #6495ed;
+            color: #fff;
+        }
+
+    .add-task-button {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .add-task-button button {
+            background-color: #fff;
+            color: #6495ed;
+            border: 2px solid #6495ed;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+            .add-task-button button:hover {
+                background-color: #6495ed;
+                color: #fff;
+            }
 
     .modal {
         display: none;
@@ -46,9 +81,6 @@
         background-color: #fefefe;
         margin: 15% auto;
         padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-        max-width: 800px;
         border-radius: 10px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
@@ -58,72 +90,33 @@
         float: right;
         font-size: 28px;
         font-weight: bold;
+        cursor: pointer;
     }
 
         .close:hover,
         .close:focus {
-            color:white;
+            color: black;
             text-decoration: none;
-            cursor: pointer;
-        }
-
-    .text-center {
-        text-align: center;
-    }
-
-    .table {
-        margin: 0 auto;
-        width: 80%;
-        max-width: 800px;
-        background-color: #fff;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 5px 15px white;
-        border: 1px solid #ddd;
-    }
-
-        .table th {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            color: white;
-        }
-
-        .table td {
-            padding: 10px;
-            color:white;
         }
 
     .btn {
-        background-color: #6495ed;
-        color: #fff;
-        border: none;
+        background-color: #fff;
+        color: #6495ed;
+        border: 2px solid #6495ed;
         padding: 8px 16px;
         border-radius: 4px;
         cursor: pointer;
+        text-decoration: none;
     }
 
-    .btn-primary {
-        background-color: #87ceeb;
-    }
-
-        .btn-primary:hover {
+        .btn:hover {
             background-color: #6495ed;
+            color: #fff;
         }
-
-    .form-control {
-        width: 100%;
-        padding: 8px;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-    }
-
-    textarea.form-control {
-        resize: vertical;
-    }
 </style>
+
 <div class="container">
-    <h1>Welcome name</h1>
+    <h1>Welcome <span class="name">Name</span></h1>
     <div class="text-center">
         <form method="post">
             <table class="table table-hover table-responsive table-striped">
@@ -132,13 +125,21 @@
                 <th>Task</th>
                 <th>Completion</th>
                 </thead>
-             
-
+                <tr>
+                    <td>sample</td>
+                    <td>sample</td>
+                    <td><button class="btn btn-success">Done</button></td>
+                    </tr>
             </table>
-            <a class="modal-link-button" id="add-task-link">Add task</a>
+            <div class="button-container">
+                <div class="add-task-button">
+                    <button type="button" id="add-task-link">Add task</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
+
 <div id="add-task-modal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>

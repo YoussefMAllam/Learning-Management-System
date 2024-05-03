@@ -5,31 +5,71 @@
 }
 
 <style>
+    <style >
     body {
-        background-color: #f0f8ff;
+        background-color: lightblue;
         font-family: Arial, sans-serif;
     }
 
     .container {
-        margin-top: 50px;
+        max-width: 800px;
+        margin: 0 auto;
         padding: 20px;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     }
 
     h1 {
-        font-size: 36px;
-        color: black;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        color: #6495ed;
     }
 
-    /* Add this new class */
-    .modal-link {
-        color: #000000;
-        text-decoration: none;
-        font-family: Arial, sans-serif;
+    .button-container {
+        text-align: right;
+        margin-bottom: 20px;
     }
+
+    .table {
+        width: 100%;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+        .table th, .table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #6495ed;
+            color: #fff;
+        }
+
+        .table td a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
+
+    .add-thread-button {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .add-thread-button a {
+            background-color: #6495ed;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+            .add-thread-button a:hover {
+                background-color: #87ceeb;
+            }
 
     .modal {
         display: none;
@@ -46,9 +86,6 @@
         background-color: #fefefe;
         margin: 15% auto;
         padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-        max-width: 800px;
         border-radius: 10px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
@@ -58,66 +95,30 @@
         float: right;
         font-size: 28px;
         font-weight: bold;
+        cursor: pointer;
     }
 
         .close:hover,
         .close:focus {
             color: black;
             text-decoration: none;
-            cursor: pointer;
-        }
-
-    .text-center {
-        text-align: center;
-    }
-
-    .table {
-        margin: 0 auto;
-        width: 80%;
-        max-width: 800px;
-        background-color: #fff;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-
-        .table th {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .table td {
-            padding: 10px;
         }
 
     .btn {
-        background-color: #6495ed;
-        color: #fff;
-        border: none;
+        background-color: #fff;
+        color: #6495ed;
+        border: 2px solid #6495ed;
         padding: 8px 16px;
         border-radius: 4px;
         cursor: pointer;
+        text-decoration: none;
     }
 
-    .btn-primary {
-        background-color: #87ceeb;
-    }
-
-        .btn-primary:hover {
+        .btn:hover {
             background-color: #6495ed;
+            color: #fff;
         }
-
-    .form-control {
-        width: 100%;
-        padding: 8px;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-    }
-
-    textarea.form-control {
-        resize: vertical;
-    }
+</style>
 </style>
 <h1>Name's Transcript</h1>
 <table class="table-bordered table" style="width:100%">

@@ -1,7 +1,6 @@
 ﻿@page
-@model LMS.Pages.Teacher.teacherhomeModel
+@model LMS.Pages.admin.coursedetailsModel
 @{
-    Layout = "teacherlayout.cshtml";
 }
 <style>
     body {
@@ -18,8 +17,6 @@
     h1 {
         text-align: center;
         color: #6495ed;
-        margin-bottom: 30px;
-        font-size: 32px;
     }
 
     .button-container {
@@ -34,8 +31,7 @@
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
 
-        .table th,
-        .table td {
+        .table th, .table td {
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
@@ -46,24 +42,30 @@
             color: #fff;
         }
 
-    .add-task-button {
+        .table td a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
+
+    .add-thread-button {
         text-align: center;
         margin-top: 20px;
     }
 
-        .add-task-button button {
-            background-color: #fff;
-            color: #6495ed;
-            border: 2px solid #6495ed;
+        .add-thread-button a {
+            background-color: #6495ed;
+            color: #fff;
+            border: none;
             padding: 10px 20px;
             border-radius: 4px;
             text-decoration: none;
+            display: inline-block;
             transition: background-color 0.3s ease;
         }
 
-            .add-task-button button:hover {
-                background-color: #6495ed;
-                color: #fff;
+            .add-thread-button a:hover {
+                background-color: #87ceeb;
             }
 
     .modal {
@@ -114,20 +116,20 @@
             color: #fff;
         }
 </style>
-<div class="container">
-    <h1>Welcome Professor</h1>
-    <div class="text-center">
-        <form method="post">
-            <table class="table table-hover table-responsive table-striped">
-                <thead class="bg-black text-light">
-                <th>#</th>
-                <th>assignment need to be check</th>
-                <th>Ccode</th>
-                </thead>
+<h1> Course Name</h1>
+<table class="table table-borderless">
+    <thead>
+  
+    <th>Instructor</th>
+    <th>course code</th>
+    <th>semester</th>
 
+    </thead>
+    <tr>
+        <td>sample</a></td>
+        <td>sample</td>
+        <td>sample</td>
+       
 
-            </table>
-          
-        </form>
-    </div>
-</div>
+    </tr>
+</table>
