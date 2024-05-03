@@ -116,6 +116,8 @@
     <button class="btn"><a id="removestudent-link"> remove students</a></button>
     <button class="btn"><a id="removeinstructor-link"> Remove Instructor</a></button>
     <button class="btn"><a id="addcourse-link">Add Course</a></button>
+        <button class="btn"><a id="addadmin-link">Add admin</a></button>
+        <button class="btn"><a id="addinstance-link">Add course instance</a></button>
 </div>
 </div>
 
@@ -228,120 +230,77 @@
             </div>
         </div>
     </div>
-    <script>
-        var studentModal = document.getElementById("addstudent-modal");
-        var studentLink = document.getElementById("addstudent-link");
 
-        // When the user clicks on the link, open the student modal
-        studentLink.onclick = function () {
-            studentModal.style.display = "block";
-        }
 
-        // Get the <span> element that closes the student modal
-        var studentSpan = document.getElementsByClassName("close")[0];
+<div id="addadmin-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add admin</h2>
 
-        // When the user clicks on <span> (x), close the student modal
-        studentSpan.onclick = function () {
-            studentModal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the student modal, close it
-        window.onclick = function (event) {
-            if (event.target == studentModal) {
-                studentModal.style.display = "none";
-            }
-        }
-
-        var assignmentModal = document.getElementById("add-instructor-modal");
-        var assignmentLink = document.getElementById("add-instructor-link");
-
-        // When the user clicks on the link, open the assignment modal
-        assignmentLink.onclick = function () {
-            assignmentModal.style.display = "block";
-        }
-
-        // Get the <span> element that closes the assignment modal
-        var assignmentSpan = document.getElementsByClassName("close")[1];
-
-        // When the user clicks on <span> (x), close the assignment modal
-        assignmentSpan.onclick = function () {
-            assignmentModal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the assignment modal, close it
-        window.onclick = function (event) {
-            if (event.target == assignmentModal) {
-                assignmentModal.style.display = "none";
-            }
-        }
-
-        var announcementModal = document.getElementById("removestudent-modal");
-        var announcementLink = document.getElementById("removestudent-link");
-
-        // When the user clicks on the link, open the announcement modal
-        announcementLink.onclick = function () {
-            announcementModal.style.display = "block";
-        }
-
-        // Get the <span> element that closes the announcement modal
-        var announcementSpan = document.getElementsByClassName("close")[2];
-
-        // When the user clicks on <span> (x), close the announcement modal
-        announcementSpan.onclick = function () {
-            announcementModal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the announcement modal, close it
-        window.onclick = function (event) {
-            if (event.target == announcementModal) {
-                announcementModal.style.display = "none";
-            }
-        }
-
-        var instructorModal = document.getElementById("removeinstructor-modal");
-        var instructorLink = document.getElementById("removeinstructor-link");
-
-        // When the user clicks on the link, open the instructor modal
-        instructorLink.onclick = function () {
-            instructorModal.style.display = "block";
-        }
-
-        // Get the <span> element that closes the instructor modal
-        var instructorSpan = document.getElementsByClassName("close")[3];
-
-        // When the user clicks on <span> (x), close the instructor modal
-        instructorSpan.onclick = function () {
-            instructorModal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the instructor modal, close it
-        window.onclick = function (event) {
-            if (event.target == instructorModal) {
-                instructorModal.style.display = "none";
-            }
-        }
-
-        var courseModal = document.getElementById("addcourse-modal");
-        var courseLink = document.getElementById("addcourse-link");
-
-        // When the user clicks on the link, open the course modal
-        courseLink.onclick = function () {
-            courseModal.style.display = "block";
-        }
-
-        // Get the <span> element that closes the course modal
-        var courseSpan = document.getElementsByClassName("close")[4];
-
-        // When the user clicks on <span> (x), close the course modal
-        courseSpan.onclick = function () {
-            courseModal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the course modal, close it
-        window.onclick = function (event) {
-            if (event.target == courseModal) {
-                courseModal.style.display = "none";
-            }
-        }
-    </script>
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="course-name">Email</label>
+                <input type="text" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="course-id">Password</label>
+                <textarea class="form-control" id="password" name="password" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 </div>
+<div>
+
+<div id="addinstance-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add Course Instance</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="course-name">Course Code</label>
+                <input type="text" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="course-id">Semester</label>
+                <textarea class="form-control" id="semester" name="semester" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="course-id">Instructor ID</label>
+                <textarea class="form-control" id="id" name="id" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+    </div>
+    <script>
+    const modals = document.querySelectorAll('.modal');
+    const links = document.querySelectorAll('.button-group .btn a');
+
+    // Add event listeners to links
+    links.forEach((link, index) => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent the default link behavior
+            modals[index].style.display = 'block';
+        });
+    });
+
+    // Add event listeners to close buttons
+    modals.forEach((modal, index) => {
+        const closeButton = modal.querySelector('.close');
+        closeButton.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    });
+
+    // Add event listener to window
+    window.addEventListener('click', (event) => {
+        modals.forEach((modal) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+    </script>
