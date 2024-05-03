@@ -4,122 +4,164 @@
 }
 
 <body>
-    <div class="top-bar">
-        <h1>
-            Exchange your questions!
-        </h1>
-    </div>
-    <div class="main">
-        <div class="header">
-            <h4 class="title">
-                Thread 1
-            </h4>
-            <div class="bottom">
-                <p class="timestamp">
-                    2/5/2024
-                </p>
-                <p class="comment-count">
-                    4 comments
-                </p>
-            </div>
+    <div class="container">
+        <div class="top-bar">
+            <h1>
+                Exchange your questions!
+            </h1>
         </div>
-        <textarea>
-
-        </textarea>
-        <button>Add Comment</button>
-        <div class="comments">
-            <div class="comment">
+        <div class="main">
+            <div class="header">
+                <h4 class="title">
+                    Thread 1
+                </h4>
+                <div class="bottom">
+                    <p class="timestamp">
+                        2/5/2024
+                    </p>
+                    <p class="comment-count">
+                        4 comments
+                    </p>
+                </div>
+            </div>
+            <textarea class="comment-input"></textarea>
+            <button class="add-comment-button">Add Comment</button>
+            <div class="comments">
+                <div class="comment">
                     <div class="top-comment">
                         <hr />
-                    <p class="user">
-                        Allam
-                    </p>
-                    <p class="comment-ts">
-                        2/5/2024
-                    </p>
+                        <p class="user">
+                            Allam
+                        </p>
+                        <p class="comment-ts">
+                            2/5/2024
+                        </p>
+                    </div>
+                    <div class="comment-content">
+                        Comment kys kys kys
+                    </div>
                 </div>
-                <div class="comment-content">
-                    Comment kys kys kys
-                </div>
-            </div>
-            <div class="comment">
-                <div class="top-comment">
-                    <hr />
-                    <p class="user">
-                        Allam
-                    </p>
-                    <p class="comment-ts">
-                        2/5/2024
-                    </p>
-                </div>
-                <div class="comment-content">
-                    Comment kys kys kys
+                <div class="comment">
+                    <div class="top-comment">
+                        <hr />
+                        <p class="user">
+                            Allam
+                        </p>
+                        <p class="comment-ts">
+                            2/5/2024
+                        </p>
+                    </div>
+                    <div class="comment-content">
+                        Comment kys kys kys
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <style>
-        .body {
-            margin: 10px 60px;
-        }
-
-        .a {
-            text-decoration: none;
-            color: black;
-        }
-
-        .h4, .h1, .ol {
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
             margin: 0;
-        }
-
-        .p {
-            margin: 5px 0;
-        }
-
-        textarea{
-            width:80%;
-            height: 100px;
+            padding: 0;
         }
         
-        button{
-            display: block;
-            margin: 10px 0;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
         }
-
-        .row {
-            padding: 5px 0;
-        }
-
+        
         .top-bar {
-            background-color: skyblue;
-            padding: 10px 40px;
+            text-align: center;
+            margin-bottom: 20px;
         }
-
+        
+        h1 {
+            color: #6495ed;
+        }
+        
         .main {
-            background-color: lightblue;
-            padding: 10px 15px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 6px;
         }
-
-        .comments{
-            margin: 40px 0;
-        }
-
-        .comment{
-            margin: 10px 0;
-        }
-
-        .bottom, .top-comment {
+        
+        .header {
             display: flex;
-            color: black;
-            font-size: 12 px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
-
-        .comment-ts{
+        
+        .title {
+            margin: 0;
+            color: #333;
+        }
+        
+        .bottom {
+            display: flex;
+            align-items: center;
+        }
+        
+        .timestamp,
+        .comment-count {
+            margin: 0;
+            margin-left: 10px;
+            color: #777;
+        }
+        
+        .comment-input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .add-comment-button {
+            background-color: #6495ed;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .add-comment-button:hover {
+            background-color: #87ceeb;
+        }
+        
+        .comment {
+            margin-bottom: 10px;
+        }
+        
+        .top-comment {
+            display: flex;
+            align-items: center;
+        }
+        
+        .top-comment hr {
+            flex-grow: 1;
+            margin: 0;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+        
+        .user,
+        .comment-ts {
+            margin: 0;
+            color: #777;
+            margin-right: 10px;
+        }
+        
+        .comment-content {
+            margin-top: 10px;
             padding-left: 10px;
-        }
-
-        .timestamp {
-            padding-right: 10px;
+            border-left: 2px solid #ccc;
+            color: #333;
         }
     </style>
 </body>
