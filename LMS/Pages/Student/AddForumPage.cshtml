@@ -4,128 +4,85 @@
 }
 
 
-<body>
-    <div class="top-bar">
-        <h1>
-            Create Thread!
-        </h1>
-    </div>
-    <div class="main">
-        <div class="header">
-            <h4 class="title">
-                Thread 1
-            </h4>
-            <div class="bottom">
-                <p class="timestamp">
-                    2/5/2024
-                </p>
-            </div>
-        </div>
-        <textarea>
-
-        </textarea>
-        <button>Add Thread</button>
-    </div>
+<!DOCTYPE html>
+<html>
+<head>
     <style>
         body {
             background-color: #f0f8ff;
             font-family: Arial, sans-serif;
         }
 
-        /* Add this new class */
-        .modal-link {
-            color: #000000;
-            text-decoration: none;
-            font-family: Arial, sans-serif;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 800px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-            .close:hover,
-            .close:focus {
-                color: black;
-                text-decoration: none;
-                cursor: pointer;
-            }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .table {
-            margin: 0 auto;
-            width: 80%;
-            max-width: 800px;
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-            .table th {
-                padding: 10px;
-                border-bottom: 1px solid #ddd;
-            }
-
-            .table td {
-                padding: 10px;
-            }
-
-        .btn {
+        .top-bar {
             background-color: #6495ed;
+            padding: 10px;
+            text-align: center;
             color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
         }
 
-        .btn-primary {
-            background-color: #87ceeb;
+        .main {
+            padding: 20px;
         }
 
-            .btn-primary:hover {
-                background-color: #6495ed;
-            }
+        .header {
+            margin-bottom: 20px;
+        }
 
-        .form-control {
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], textarea {
             width: 100%;
             padding: 8px;
             border-radius: 4px;
             border: 1px solid #ccc;
             box-sizing: border-box;
-        }
-
-        textarea.form-control {
+            margin-bottom: 10px;
             resize: vertical;
         }
+
+        .bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timestamp {
+            font-size: 12px;
+            color: #888;
+        }
     </style>
-    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <h1>Create Thread!</h1>
+    </div>
+    <div class="main">
+        <div class="header">
+            <h4 class="title">
+                Title
+                <input type="text">
+            </h4>
+            <div class="bottom">
+                <p class="timestamp">
+
+                </p>
+            </div>
+        </div>
+        <div>
+            Course Code
+            <input type="text">
+        </div>
+       
+
+        </div>
+        <div>
+            Questions
+            <input type="text">
+    </div>
+    
 </body>
+</html>

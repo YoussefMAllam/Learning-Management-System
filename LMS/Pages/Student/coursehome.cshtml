@@ -53,6 +53,7 @@
 
     .text-center {
         text-align: center;
+        margin-bottom: 20px; /* Added margin-bottom for better spacing */
     }
 
     .table {
@@ -71,7 +72,7 @@
         }
 
         .table td {
-            padding: 10px;
+            padding: 5px;
         }
 
     .btn {
@@ -101,52 +102,96 @@
 
     textarea.form-control {
         resize: vertical;
-
+    }
 </style>
-
 
 <div class="text-center">
     <table class="table table-borderless">
         <tr>
             <th>
-                CIE 202</>
+                CIE 202
             </th>
         </tr>
         <tr>
-            <th>
-                Material </>
-            </th>
-            <td colspan="3">
-            </td>
+            
         </tr>
         <tr>
             <th>
-                <a class="modal-link-button" id="feedback-link">Give Feedback</a>
+                <a href="#" id="feedback-link" class="modal-link" data-modal="feedback-modal">Give Feedback</a>
             </th>
-            <td colspan="3">
+            <td colspan="0">
             </td>
         </tr>
-        <tr>
-            <th>
-                <a class="modal-link-button" id="submit-assignment-link">Submit Assignments</a>
-            </th>
-            <td colspan="3">
-            </td>
-        </tr>
-
     </table>
+    <table class="table table-borderless" style="margin-top: 20px;">
+        <tr>
+            <th>Material</th>
+            <td>link </a></td>
+           
+        </tr>
+        <tr>
+            <th>sample</th>
+            <td>sample</a></td>
+
+        </tr>
+       
+    </table>
+
+
+    <table class="table table-borderless" style="margin-top: 20px;">
+        <tr>
+            <th>Assignment 1</th>
+            <td>due date</a></td>
+            <td><a href="#" class="modal-link" data-modal="modal1">Submit</a></td>
+        </tr>
+        <tr>
+            <th>Assignment 2</th>
+            <td>due date</a></td>
+            <td><a href="#" class="modal-link" data-modal="modal2">Submit</a></td>
+        </tr>
+    </table>
+
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Submit Assignment 1</h3>
+            <form>
+                
+               
+                <label for="assignment1-link">Link:</label>
+                <input type="text" id="assignment1-link" name="link">
+                <div class="button-container">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Submit Assignment 2</h3>
+            <form>
+                
+                
+                <label for="assignment2-link">Link:</label>
+                <input type="text" id="assignment2-link" name="link">
+                <div class="button-container">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <div id="feedback-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Give Feedback</h2>
             <form method="post" enctype="multipart/form-data">
+                
                 <div class="form-group">
-                    <label for="feedback-title">Title:</label>
-                    <input type="text" class="form-control" id="feedback-title" name="title" required>
-                </div>
-                <div class="form-group">
-                    <label for="feedback-description">Description:</label>
+                    <label for="feedback-description">Feedback:</label>
                     <textarea class="form-control" id="feedback-description" name="description" rows="3" required></textarea>
                 </div>
                 <div class="button-container">
@@ -155,73 +200,35 @@
             </form>
         </div>
     </div>
-
-    <div id="submit-assignment-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Submit Assignment</h2>
-            <form method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="assignment-name">Title:</label>
-                    <input type="text" class="form-control" id="assignment-name" name="title" required>
-                </div>
-                <div class="form-group">
-                    <label for="link-upload">Description:</label>
-                    <textarea class="form-control" id="link-upload" name="link" rows="3" required></textarea>
-                </div>
-                <div class="button-container">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        // Get the modal and link elements
-        var modal = document.getElementById("feedback-modal");
-        var link = document.getElementById("feedback-link");
-
-        // When the user clicks on the link, open the modal
-        link.onclick = function () {
-            modal.style.display = "block";
-        };
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-            modal.style.display = "none";
-        };
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        };
-
-        var assignmentModal = document.getElementById("submit-assignment-modal");
-        var assignmentLink = document.getElementById("submit-assignment-link");
-
-        // When the user clicks on the link, open the assignment modal
-        assignmentLink.onclick = function () {
-            assignmentModal.style.display = "block";
-        };
-
-        // Get the <span> element that closes the assignment modal
-        var assignmentSpan = document.getElementsByClassName("close")[1];
-
-        // When the user clicks on <span> (x), close the assignment modal
-        assignmentSpan.onclick = function () {
-            assignmentModal.style.display = "none";
-        };
-
-        // When the user clicks anywhere outside of the assignment modal, close it
-        window.onclick = function (event) {
-            if (event.target == assignmentModal) {
-                assignmentModal.style.display = "none";
-            }
-        };
-    </script>
 </div>
+
+<script>
+    const modals = document.querySelectorAll('.modal');
+    const links = document.querySelectorAll('.modal-link');
+    const closeButtons = document.querySelectorAll('.close');
+
+    // Attach event listeners to all links
+    links.forEach((link) => {
+        link.onclick = function (event) {
+            event.preventDefault();
+            const modalId = this.getAttribute('data-modal');
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'block';
+        };
+    });
+
+    // Attach event listeners to all close buttons
+    closeButtons.forEach((button) => {
+        button.onclick = function () {
+            const modal = this.parentNode.parentNode;
+            modal.style.display = 'none';
+        };
+    });
+
+    // When the user clicks anywhere outside of the modals, close them
+    window.onclick = function (event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+        }
+    };
+</script>

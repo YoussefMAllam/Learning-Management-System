@@ -137,6 +137,14 @@
             <td colspan="3">
             </td>
         </tr>
+
+        <tr>
+            <th>
+                <a id="addcourse-link">Add Course</a>
+            </th>
+            <td colspan="3">
+            </td>
+        </tr>
     </table>
 
     <div id="addstudent-modal" class="modal">
@@ -208,6 +216,26 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+        </div>
+        </div>
+
+        <div id="addcourse-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Add Course</h2>
+             
+                <form method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="course-name">Course Name</label>
+                        <input type="text" class="form-control" id="course-name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="course-id">Course ID</label>
+                        <textarea class="form-control" id="course-id" name="id" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
     <script>
@@ -300,6 +328,29 @@
         window.onclick = function (event) {
             if (event.target == instructorModal) {
                 instructorModal.style.display = "none";
+            }
+        }
+
+        var courseModal = document.getElementById("addcourse-modal");
+        var courseLink = document.getElementById("addcourse-link");
+
+        // When the user clicks on the link, open the course modal
+        courseLink.onclick = function () {
+            courseModal.style.display = "block";
+        }
+
+        // Get the <span> element that closes the course modal
+        var courseSpan = document.getElementsByClassName("close")[4];
+
+        // When the user clicks on <span> (x), close the course modal
+        courseSpan.onclick = function () {
+            courseModal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the course modal, close it
+        window.onclick = function (event) {
+            if (event.target == courseModal) {
+                courseModal.style.display = "none";
             }
         }
     </script>
