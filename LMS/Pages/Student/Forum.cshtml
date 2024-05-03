@@ -88,6 +88,8 @@
             background-color: #fefefe;
             margin: 15% auto;
             padding: 20px;
+            width:50%;
+            
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
@@ -162,16 +164,25 @@
     <div id="filter-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Write your thread</h2>
+            <h2>Filter threads</h2>
             <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="filter-title">Title:</label>
-                    <input type="text" class="form-control" id="filter-title" name="title" required>
-                </div>
-                <div class="form-group">
-                    <label for="filter-description">Description:</label>
-                    <textarea class="form-control" id="filter-description" name="description" rows="3" required></textarea>
-                </div>
+
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="student" name="role" class="custom-control-input">
+                        <label class="custom-control-label" for="student">Courses taken</label>
+
+
+
+                        <div class="form-group">
+                            <label for="filter-title">Course Code:</label>
+                            <input type="text" class="form-control" id="filter-title" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="filter-title">Course Name:</label>
+                            <input type="text" class="form-control" id="filter-title" name="title" required>
+                        </div>
+                      
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
