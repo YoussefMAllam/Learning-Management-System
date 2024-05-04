@@ -34,54 +34,65 @@
 </body>
 </html>
 <style>
+    :root {
+        --primary-color: #6495ed;
+        --background-color: #f0f8ff;
+        --font-family: Arial, sans-serif;
+        --padding: 20px;
+    }
+
     body {
-        background-color: #f0f8ff;
-        font-family: Arial, sans-serif;
+        background-color: var(--background-color);
+        font-family: var(--font-family);
     }
 
     .container {
         max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
+        padding: var(--padding);
+    }
+
+    .top-bar {
+        text-align: center;
     }
 
     h1 {
-        text-align: center;
-        color: #6495ed;
+        color: var(--primary-color);
     }
 
     .main {
         display: flex;
         flex-direction: column;
         align-items: center;
+        max-width: 800px;
     }
 
     .form-group {
         display: flex;
-        flex-direction: column;
-        margin-bottom: 20px;
-        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: var(--padding);
     }
 
-    .title-input, .course-code-input {
+        .form-group label {
+            width: 20%;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+    .input-field {
         padding: 10px;
         font-size: 16px;
         border: 1px solid #ccc;
         border-radius: 4px;
-        width: 100%;
+        width: 80%;
     }
 
     .questions-input {
-        padding: 10px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
         height: 200px;
-        width: 100%;
     }
 
     .create-thread-button {
-        background-color: #6495ed;
+        background-color: var(--primary-color);
         color: #fff;
         border: none;
         padding: 10px 20px;
@@ -94,3 +105,4 @@
             background-color: #87ceeb;
         }
 </style>
+
