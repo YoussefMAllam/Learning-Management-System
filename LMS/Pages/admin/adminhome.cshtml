@@ -275,19 +275,19 @@
     </div>
 </div>
     </div>
-    <script>
+  
+ <script>
     const modals = document.querySelectorAll('.modal');
     const links = document.querySelectorAll('.button-group .btn a');
 
-    // Add event listeners to links
+   
     links.forEach((link, index) => {
         link.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent the default link behavior
+            event.preventDefault(); 
             modals[index].style.display = 'block';
         });
     });
 
-    // Add event listeners to close buttons
     modals.forEach((modal, index) => {
         const closeButton = modal.querySelector('.close');
         closeButton.addEventListener('click', () => {
@@ -295,7 +295,7 @@
         });
     });
 
-    // Add event listener to window
+   
     window.addEventListener('click', (event) => {
         modals.forEach((modal) => {
             if (event.target === modal) {

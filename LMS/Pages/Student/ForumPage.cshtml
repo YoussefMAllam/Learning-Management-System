@@ -4,130 +4,132 @@
     Layout = "studentlayout.cshtml";
 
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exchange your questions!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
 <body>
-    <div class="top-bar">
-        <h1>
-            Exchange your questions!
-        </h1>
-    </div>
-    <div class="main-container">
-        <div class="main">
-            <div class="header">
+    <header class="top-bar">
+        <h1>Exchange your questions!</h1>
+    </header>
+    <main class="main-container">
+        <section class="main">
+            <header class="header">
                 <h4 class="title">Title</h4>
                 <h6>Question 1</h6>
                 <div class="bottom">
                     <p class="timestamp">2/5/2024</p>
                     <p class="comment-count">4 comments</p>
                 </div>
-            </div>
-            <textarea></textarea>
-            <button>Add Comment</button>
-            <div class="comments">
-                <div class="comment">
-                    <div class="top-comment">
-                        <hr />
+            </header>
+            <textarea class="comment-input"></textarea>
+            <button class="add-comment-btn" aria-label="Add comment">Add Comment</button>
+            <section class="comments">
+                <article class="comment">
+                    <header class="top-comment">
+                        <hr>
                         <p class="user">Allam</p>
                         <p class="comment-ts">2/5/2024</p>
-                    </div>
+                    </header>
                     <div class="comment-content">
                         Comment kys kys kys
                     </div>
-                </div>
-                <div class="comment">
-                    <div class="top-comment">
-                        <hr />
+                </article>
+                <article class="comment">
+                    <header class="top-comment">
+                        <hr>
                         <p class="user">Allam</p>
                         <p class="comment-ts">2/5/2024</p>
-                    </div>
+                    </header>
                     <div class="comment-content">
                         Comment kys kys kys
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <style>
-        body {
-            margin: 10px 60px;
-        }
-
-        a {
-            text-decoration: none;
-            color: black;
-        }
-
-        h1, h2, h3, h4, h5, h6, ol {
-            margin: 0;
-        }
-
-        p {
-            margin: 5px 0;
-        }
-
-        textarea {
-            width: 80%;
-            height: 100px;
-            background-color: #e5f2ff;
-            border: 1px solid #91a7ff;
-            border-radius: 5px;
-            padding: 10px;
-        }
-
-        button {
-            display: block;
-            margin: 10px 0;
-            background-color: lightblue;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-            button:hover {
-                background-color: lightblue;
-            }
-
-        .row {
-            padding: 5px 0;
-        }
-
-        .top-bar {
-            background-color: dodgerblue;
-            padding: 10px 40px;
-        }
-
-        .main {
-            background-color: #e5f2ff;
-            padding: 10px 15px;
-            border: 1px solid #91a7ff;
-            border-radius: 5px;
-        }
-
-        .comments {
-            margin: 40px 0;
-        }
-
-        .comment {
-            margin: 10px 0;
-            background-color: #e5f2ff;
-            padding: 10px;
-            border: 1px solid #91a7ff;
-            border-radius: 5px;
-        }
-
-        .bottom, .top-comment {
-            display: flex;
-            color: black;
-            font-size: 12px;
-        }
-
-        .comment-ts {
-            padding-left: 10px;
-        }
-
-        .timestamp {
-            padding-right: 10px;
-        }
-    </style>
+                </article>
+            </section>
+        </section>
+    </main>
 </body>
+</html>
+<style> {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+}
+
+.top-bar {
+  background-color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.top-bar h1 {
+  font-size: 24px;
+  color: black;
+  margin: 0;
+}
+
+.main-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.main {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  width: 100%;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.header.title {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.header h6 {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  color: #666;
+}
+
+.bottom p {
+  margin-right: 10px;
+}
+
+.comment-input {
+  width: 100%;
+  height: 100px;
+  background-color: #e5f2ff;
+  border: 1px solid #91a7ff;
+  border-radius: 5px;
+  padding: 10px;
+  resize: vertical;
+}
+
+.add-comment-btn {
+  display
+}
+</style>
