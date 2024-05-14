@@ -13,6 +13,22 @@ namespace LMS.Models
         }
 
 
+        //Loging in//
+        public DataTable getInstID(string email, string password)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select ID from student where email='" + email + "' and password='" + password + "'\r\nunion\r\nselect ID from instructor where email='" + email + "' and password='" + password + "'\r\nunion\r\nselect ID from admin where email='" + email + "' and password='" + password + "'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch(SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+
         //Teacher Selection Queries//
         public DataTable getIname(string id)
         {

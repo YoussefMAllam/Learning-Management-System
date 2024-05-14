@@ -93,27 +93,27 @@
                     <h4>Login </h4>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form method="post">
                         <div class="form-group">
                             <label for="email">Email or Username</label>
-                            <input type="text" class="form-control" id="email" placeholder="Enter email or username">
+                            <input type="text" class="form-control" id="email" placeholder="Enter email or username" asp-for="@Model.email">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Enter password">
+                            <input type="password" class="form-control" id="password" placeholder="Enter password" asp-for="@Model.password">
                         </div>
                         <div class="form-group">
                             <label for="role">Role</label>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="student" name="role" class="custom-control-input">
+                                <input type="radio" id="student" name="role" class="custom-control-input" value="student" asp-for="@Model.role">
                                 <label class="custom-control-label" for="student">Student</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="teacher" name="role" class="custom-control-input">
+                                <input type="radio" id="instructor" name="role" class="custom-control-input" value="instructor" asp-for="@Model.role">
                                 <label class="custom-control-label" for="teacher">Teacher</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="admin" name="role" class="custom-control-input">
+                                <input type="radio" id="admin" name="role" class="custom-control-input" value="admin" asp-for="@Model.role">
                                 <label class="custom-control-label" for="admin">admin</label>
                             </div>
                         </div>
@@ -123,7 +123,7 @@
                                 <label class="custom-control-label" for="rememberMe">Remember me</label>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary" onclick="event.preventDefault(); redirectToHomePage(event);">Login</button>
+                        <button type="submit" class="btn btn-primary">Login</button>
                         <a href="#" class="btn btn-link">Forgot password?</a>
                         <p>Continue as a guest<a href="#"></p>
                     </form>
