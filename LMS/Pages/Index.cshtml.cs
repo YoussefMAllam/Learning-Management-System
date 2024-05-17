@@ -44,15 +44,18 @@ namespace LMS.Pages
             {
                 if (ID.Length==3)
                 {
-                    return RedirectToPage("Instructor", new { id = ID });
+                    HttpContext.Session.SetString("ID", ID);
+                    return RedirectToPage("Teacher/teacherhome", new { id = ID });
                 }
                 else if (ID.Length==9)
                 {
-                    return RedirectToPage("Student", new { id = ID });
+                    HttpContext.Session.SetString("ID", ID);
+                    return RedirectToPage("Student/studenthome", new { id = ID });
                 }
                 else if (ID.Length==2)
                 {
-                    return RedirectToPage("Admin", new { id = ID });
+                    HttpContext.Session.SetString("ID", ID);
+                    return RedirectToPage("Admin/adminhome", new { id = ID });
                 }
             }
 
