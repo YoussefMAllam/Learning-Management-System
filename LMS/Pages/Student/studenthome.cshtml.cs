@@ -30,9 +30,6 @@ namespace LMS.Pages.Student
         public IActionResult OnPostAddTask(string task, string ccode, string sem)
         {
             _db.AddTodo(id, task, ccode, sem);
-
-            dt = _db.ViewTasks(id);
-
             return RedirectToPage("./studenthome");
         }
         public string id { get; set; }

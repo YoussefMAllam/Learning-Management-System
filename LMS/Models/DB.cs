@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using Microsoft.AspNetCore.Components.Infrastructure;
+using System.Data;
 using System.Data.SqlClient;
 using System.Xml.Linq;
 namespace LMS.Models
@@ -65,14 +66,14 @@ namespace LMS.Models
         public DataTable getungraded(string id)
         {
             DataTable dt = new DataTable();
-            string Q = "select ccode,Aname from assignment\r\nwhere assignment.ccode in(select distinct course.ccode from course where\r\ninst_ID=666)\r\nand assignment.sem in(select distinct course.semester from course where\r\ninst_ID=" + id + ")\r\nand (done=0 or done is null)";
+            string Q = "select ccode,Aname from assignment where assignment.ccode in(select distinct course.ccode from course where inst_ID="+id+" and assignment.sem in(select distinct course.semester from course where inst_ID=" + id + ") and (done=0 or done is null))";
             try
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand(Q, con);
                 dt.Load(cmd.ExecuteReader());
             }
-            catch(SqlException sq) { }
+            catch(SqlException sq) { Console.WriteLine(sq); }
             finally { con.Close(); }
             return dt;
         }
