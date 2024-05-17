@@ -5,15 +5,15 @@ using System.Data.SqlClient;
 using System.Xml.Linq;
 namespace LMS.Models
 {
-    
+
     public class DB
     {
-        public SqlConnection con {  get; set; }
-        
+        public SqlConnection con { get; set; }
+
 
         public DB() {
-            string constr = "Data Source=DESKTOP-27HLH9T;Initial Catalog=LMS;Integrated Security=True;TrustServerCertificate=True";
-            con =new SqlConnection(constr);
+            string constr = "Data Source=G15;Initial Catalog=LMS;Integrated Security=True;Encrypt=False;TrustServerCertificate=True";
+            con = new SqlConnection(constr);
         }
 
 
@@ -151,7 +151,7 @@ namespace LMS.Models
                 SqlCommand cmd = new SqlCommand(Q, con);
                 dt.Load(cmd.ExecuteReader());
             }
-            catch(SqlException sq) { }
+            catch (SqlException sq) { }
             finally { con.Close(); }
             return dt;
         }
@@ -163,11 +163,11 @@ namespace LMS.Models
             string Q = "select Iname from instructor where ID =" + id;
             try {
                 con.Open();
-                SqlCommand cmd=new SqlCommand(Q, con);
+                SqlCommand cmd = new SqlCommand(Q, con);
                 dt.Load(cmd.ExecuteReader());
-            } 
-            catch(SqlException sq) { 
-            
+            }
+            catch (SqlException sq) {
+
             }
             finally { con.Close(); }
             return dt;
@@ -182,7 +182,7 @@ namespace LMS.Models
                 SqlCommand cmd = new SqlCommand(Q, con);
                 dt.Load(cmd.ExecuteReader());
             }
-            catch(SqlException sq) { }
+            catch (SqlException sq) { }
             finally { con.Close(); }
             return dt;
         }
@@ -190,14 +190,14 @@ namespace LMS.Models
         public DataTable getungraded(string id)
         {
             DataTable dt = new DataTable();
-            string Q = "select ccode,Aname from assignment where assignment.ccode in(select distinct course.ccode from course where inst_ID="+id+" and assignment.sem in(select distinct course.semester from course where inst_ID=" + id + ") and (done=0 or done is null))";
+            string Q = "select ccode,Aname from assignment where assignment.ccode in(select distinct course.ccode from course where inst_ID=" + id + " and assignment.sem in(select distinct course.semester from course where inst_ID=" + id + ") and (done=0 or done is null))";
             try
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand(Q, con);
                 dt.Load(cmd.ExecuteReader());
             }
-            catch(SqlException sq) { Console.WriteLine(sq); }
+            catch (SqlException sq) { Console.WriteLine(sq); }
             finally { con.Close(); }
             return dt;
         }
@@ -212,7 +212,7 @@ namespace LMS.Models
                 SqlCommand cmd = new SqlCommand(Q, con);
                 dt.Load(cmd.ExecuteReader());
             }
-            catch(SqlException sq) { }
+            catch (SqlException sq) { }
             finally { con.Close(); }
             return dt;
         }
@@ -227,7 +227,7 @@ namespace LMS.Models
                 SqlCommand cmd = new SqlCommand(Q, con);
                 dt.Load(cmd.ExecuteReader());
             }
-            catch(SqlException sq) { }
+            catch (SqlException sq) { }
             finally { con.Close(); }
             return dt;
         }
@@ -235,14 +235,14 @@ namespace LMS.Models
         public DataTable getmaterial(string ccode)
         {
             DataTable dt = new DataTable();
-            string Q = "select Mname,link from material where ccode = '"+ccode+"'";
+            string Q = "select Mname,link from material where ccode = '" + ccode + "'";
             try
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand(Q, con);
                 dt.Load(cmd.ExecuteReader());
             }
-            catch(SqlException sq) { }
+            catch (SqlException sq) { }
             finally { con.Close(); }
             return dt;
         }
@@ -250,14 +250,14 @@ namespace LMS.Models
         //Teacher Manipulation Queries//
         public void addassignment(string ccode, string sem, string aname, string due_date)
         {
-            string Q = "insert into assignment(Aname,ccode,sem,due_date)\r\nvalues('" + aname + "','" + ccode + "','" + sem + "'," + due_date + ")"; 
+            string Q = "insert into assignment(Aname,ccode,sem,due_date)\r\nvalues('" + aname + "','" + ccode + "','" + sem + "','" + due_date + "')";
             try
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand(Q, con);
                 cmd.ExecuteNonQuery();
             }
-            catch(SqlException sq) { }
+            catch (SqlException sq) { }
             finally { con.Close(); }
         }
 
@@ -270,11 +270,11 @@ namespace LMS.Models
                 SqlCommand cmd = new SqlCommand(Q, con);
                 cmd.ExecuteNonQuery();
             }
-            catch(SqlException sq) { }
+            catch (SqlException sq) { }
             finally { con.Close(); }
         }
 
-        public void addannouncement(string ccode,string sem,string title, string content)
+        public void addannouncement(string ccode, string sem, string title, string content)
         {
             string Q = "insert into announcement(ccode,sem,title,content)\r\nvalues('" + ccode + "','" + sem + "','" + title + "','" + content + "')";
             try
@@ -283,20 +283,20 @@ namespace LMS.Models
                 SqlCommand cmd = new SqlCommand(Q, con);
                 cmd.ExecuteNonQuery();
             }
-            catch(SqlException sq) { }
+            catch (SqlException sq) { }
             finally { con.Close(); }
         }
 
         public void registerstudent(string ccode, string sem, string stid)
         {
-            string Q = "insert into registered(StID,ccode,sem)\r\nvalues('" + stid + "','" + ccode + "','" + sem + "')";
+            string Q = "insert into registered(StID,ccode,sem) values(" + stid + ",'" + ccode + "','" + sem + "')";
             try
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand(Q, con);
                 cmd.ExecuteNonQuery();
             }
-            catch(SqlException sq) { }
+            catch (SqlException sq) { }
             finally { con.Close(); }
         }
 
@@ -309,11 +309,11 @@ namespace LMS.Models
                 SqlCommand cmd = new SqlCommand(Q, con);
                 cmd.ExecuteNonQuery();
             }
-            catch(SqlException sq) { }
+            catch (SqlException sq) { }
             finally { con.Close(); }
         }
 
-        public void addexam(string ccode,string sem, string venue,string proctor, string date)
+        public void addexam(string ccode, string sem, string venue, string proctor, string date)
         {
             string Q = "insert into exam(ccode,sem,venue,proctor_ID,exam_date)\r\nvalues('" + ccode + "','" + sem + "','" + venue + "','" + proctor + "','" + date + "')";
             try
@@ -322,13 +322,13 @@ namespace LMS.Models
                 SqlCommand cmd = new SqlCommand(Q, con);
                 cmd.ExecuteNonQuery();
             }
-            catch(SqlException sq) { }
+            catch (SqlException sq) { }
             finally { con.Close(); }
         }
 
         public void gradeexam(string ccode, string sem, string stid, string grade)
         {
-            string Q = "insert into exam_submissions(ccode,sem,StID,grade) values('"+ccode+"','"+sem+"','"+stid+"',"+grade+")'"
+            string Q = "insert into exam_submissions(ccode,sem,StID,grade) values('" + ccode + "','" + sem + "','" + stid + "'," + grade + ")'"
                 ;
             try
             {
@@ -336,20 +336,20 @@ namespace LMS.Models
                 SqlCommand cmd = new SqlCommand(Q, con);
                 cmd.ExecuteNonQuery();
             }
-            catch(SqlException sq) { }
+            catch (SqlException sq) { }
             finally { con.Close(); }
         }
 
         public void addfinalgrade(string ccode, string sem, string stid, string grade)
         {
-            string Q = "insert into transcript(ccode,sem,StID,grade) values('"+ccode+"','"+sem+"','"+stid+"',"+grade+")";
+            string Q = "insert into transcript(ccode,sem,StID,grade) values('" + ccode + "','" + sem + "','" + stid + "'," + grade + ")";
             try
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand(Q, con);
                 cmd.ExecuteNonQuery();
             }
-            catch(SqlException sq) { }
+            catch (SqlException sq) { }
             finally { con.Close(); }
         }
         public void AddStudent(string id, string name, string major, string batch, string email, string pass)
@@ -364,71 +364,99 @@ namespace LMS.Models
             finally { con.Close(); }
         }
         public void AddTodo(string stid, string task, string ccode, string sem)
-{
-    string Q = "insert into todo(StID,task,done,ccode,sem) values(@stid,@task,0,@ccode,@sem)";
-    try
-    {
-        con.Open();
-        SqlCommand cmd = new SqlCommand(Q, con);
-        cmd.Parameters.AddWithValue("@stid", stid);
-        cmd.Parameters.AddWithValue("@task", task);
-        cmd.Parameters.AddWithValue("@ccode", ccode);
-        cmd.Parameters.AddWithValue("@sem", sem);
-        cmd.ExecuteNonQuery();
-    }
-    catch (SqlException sq) { }
-    finally { con.Close(); }
-}
-
-public DataTable ViewTasks(string stid)
-{
-    string Q = "select task,done from todo where StID=@stid";
-    DataTable dt = new DataTable();
-            
-           
-            try
-    {
-        con.Open();
-        SqlCommand cmd = new SqlCommand(Q, con);
-        cmd.Parameters.AddWithValue("@stid", stid);
-        dt.Load(cmd.ExecuteReader());
-    }
-    catch (SqlException sq) { }
-    finally { con.Close(); }
-    return dt;
-}
-
-public void CompleteTask(string stid, string task)
-{
-    string Q = "update todo set done=1 where StID=@stid and task=@task";
-    try
-    {
-        con.Open();
-        SqlCommand cmd = new SqlCommand(Q, con);
-        cmd.Parameters.AddWithValue("@stid", stid);
-        cmd.Parameters.AddWithValue("@task", task);
-        cmd.ExecuteNonQuery();
-    }
-    catch (SqlException sq) { }
-    finally { con.Close(); }
-}
-public string getsemester()
         {
-            string year=DateTime.Now.ToString("yyyy");
-            string month=DateTime.Now.ToString("MM");
-            if(month == "10" || month == "11" || month == "12" || month == "01")
+            string Q = "insert into todo(StID,task,done,ccode,sem) values(@stid,@task,0,@ccode,@sem)";
+            try
             {
-                return "Fall"+year;
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.Parameters.AddWithValue("@stid", stid);
+                cmd.Parameters.AddWithValue("@task", task);
+                cmd.Parameters.AddWithValue("@ccode", ccode);
+                cmd.Parameters.AddWithValue("@sem", sem);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+
+        public DataTable ViewTasks(string stid)
+        {
+            string Q = "select task,done from todo where StID=@stid";
+            DataTable dt = new DataTable();
+
+
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.Parameters.AddWithValue("@stid", stid);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+
+        public void CompleteTask(string stid, string task)
+        {
+            string Q = "update todo set done=1 where StID=@stid and task=@task";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.Parameters.AddWithValue("@stid", stid);
+                cmd.Parameters.AddWithValue("@task", task);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+        public string getsemester()
+        {
+            string year = DateTime.Now.ToString("yyyy");
+            string month = DateTime.Now.ToString("MM");
+            if (month == "10" || month == "11" || month == "12" || month == "01")
+            {
+                return "Fall" + year;
             }
             else
             {
                 return "Spring " + year;
             }
         }
-public DataTable getccode(string cname)
+        public DataTable getccode(string cname)
         {
-            DataTable dt= new DataTable();
-            string Q = "select ccode from course_data where cname='"+cname+"'";
+            DataTable dt = new DataTable();
+            string Q = "select ccode from course_data where cname='" + cname + "'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+        public DataTable getcoursename(string ccode)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select cname from course_data where ccode='" + ccode + "'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+        public DataTable get_ID(string email)
+        {
+            DataTable dt=new DataTable();
+            string Q = "select ID from student where email='" + email + "'";
             try
             {
                 con.Open();
