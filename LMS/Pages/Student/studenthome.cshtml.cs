@@ -53,8 +53,6 @@ namespace LMS.Pages.Student
         public string CourseCode { get; set; }
         public string Semester { get; set; }
         public bool Done { get; set; }
-            id = HttpContext.Session.GetString("ID");
-        }
     }
 
 

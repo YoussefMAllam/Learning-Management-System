@@ -10,7 +10,7 @@ namespace LMS.Models
         
 
         public DB() {
-            string constr = "Data Source=DESKTOP-50DDNCA;Initial Catalog=LMS;Integrated Security=True;TrustServerCertificate=True";
+            string constr = "Data Source=G15;Initial Catalog=LMS;Integrated Security=True;Encrypt=False;TrustServerCertificate=True";
             con =new SqlConnection(constr);
         }
 
