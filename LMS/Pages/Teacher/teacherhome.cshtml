@@ -130,7 +130,9 @@
                         <th scope="row">@(i+1)</th>
                         @for (int j = 0; j < 2; j++)
                         {
-                            <td>@Model.dt.Rows[i][j]</td>
+                            <td>
+                                @Model.dt.Rows[i][j]
+                            </td>
                         }
                     </tr>
                 }
