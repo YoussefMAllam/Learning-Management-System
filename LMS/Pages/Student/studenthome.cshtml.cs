@@ -9,8 +9,7 @@ namespace LMS.Pages.Student
 
         public void OnGet()
         {
-            id= HttpContext.Session.GetString("ID");
-
+            id = HttpContext.Session.GetString("ID");
         }
     }
 }
