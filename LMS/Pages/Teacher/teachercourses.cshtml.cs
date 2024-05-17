@@ -23,13 +23,14 @@ namespace LMS.Pages.Teacher
             ID =HttpContext.Session.GetString("ID");
             dt=_db.getIcourses(ID);
         }
-        public void OnPostSelect(string coursedata)
+        public IActionResult OnPostSelect(string coursedata)
         {
             MyProperty = coursedata;
             HttpContext.Session.SetString("ccode", _db.getccode(coursedata).Rows[0][0].ToString());
             HttpContext.Session.SetString("sem", _db.getsemester());
             string ccode= HttpContext.Session.GetString("ccode");
             string sem= HttpContext.Session.GetString("sem");
+            return RedirectToPage("./coursehome", new { ccode, sem });
         }
     }
 }
