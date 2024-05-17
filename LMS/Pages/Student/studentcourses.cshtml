@@ -129,12 +129,18 @@
     <th>Semester</th>
     
     </thead>
-    <tr>
-        <td><a href="coursehome">sample</a></td>
-        <td>sample</td>
-        <td>sample</td>
-      
-    </tr>
+    @for (int i = 0; i < Model.dt.Rows.Count; i++)
+    {
+        <tr>
+            
+            @for (int j = 0; j < 3; j++)
+            {
+                <td>
+                    @Model.dt.Rows[i][j]
+                </td>
+            }
+        </tr>
+    }
 </table>
 
 <div id="filter-modal" class="modal">
@@ -145,8 +151,10 @@
             <div class="form-group">
                 
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="student" name="registered" class="custom-control-input" checked>
-                    <label class="custom-control-label" for="student">Registered</label>
+                    <input type="radio" id="student" name="all" value="a" class="custom-control-input">
+                    <label class="custom-control-label" for="student">All Courses</label><br />
+                    <input type="radio" id="student" name="all" value=" " class="custom-control-input" checked>
+                    <label class="custom-control-label" for="student">Registered Courses</label>
 
                 <div class="form-group">
                     <label for="filter-title">Course Code:</label>

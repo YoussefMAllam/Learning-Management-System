@@ -33,7 +33,7 @@ namespace LMS.Models
             return dt;
         }
         //Query for registered
-        public DataTable getRegisteredCourses(int id, string sem)
+        public DataTable getRegisteredCourses(string id, string sem)
         {
             DataTable dt = new DataTable();
             string Q = "select course_data.cname, course.ccode, semester from course\r\ninner join course_data on course.ccode=course_data.ccode\r\nwhere course.ccode in (select ccode from registered where StID=" + id + " and sem='" + sem + "') ";
@@ -48,7 +48,7 @@ namespace LMS.Models
             return dt;
         }
         //Query for Registered and search by course code
-        public DataTable getRegisteredAndCodeCourses(int id, string sem, string CCode)
+        public DataTable getRegisteredAndCodeCourses(string id, string sem, string CCode)
         {
             DataTable dt = new DataTable();
             string Q = "select course_data.cname, course.ccode, semester from course\r\ninner join course_data on course.ccode=course_data.ccode\r\nwhere course.ccode in (select ccode from registered where StID=" + id + " and sem='" + sem + "') and course.ccode like '%" + CCode + "%'";
@@ -63,7 +63,7 @@ namespace LMS.Models
             return dt;
         }
         //Query for Registered and search by course name
-        public DataTable getRegisteredAndNameCourses(int id, string sem, string name)
+        public DataTable getRegisteredAndNameCourses(string id, string sem, string name)
         {
             DataTable dt = new DataTable();
             string Q = "select course_data.cname, course.ccode, semester from course\r\ninner join course_data on course.ccode=course_data.ccode\r\nwhere course.ccode in (select ccode from registered where StID=" + id + " and sem='" + sem + "') and course_data.cname like '%" + name + "%'";
