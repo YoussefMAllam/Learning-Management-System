@@ -19,7 +19,7 @@ namespace LMS.Models
         public DataTable getInstID(string email, string password)
         {
             DataTable dt = new DataTable();
-            string Q = "select ID from student where email='" + email + "' and password='" + password + "'\r\nunion\r\nselect ID from instructor where email='" + email + "' and password='" + password + "'\r\nunion\r\nselect ID from admin where email='" + email + "' and password='" + password + "'";
+            string Q = "select ID from student where email='" + email + "' and pass='" + password + "'\r\nunion\r\nselect ID from instructor where email='" + email + "' and pass='" + password + "'\r\nunion\r\nselect ID from admin where email='" + email + "' and pass='" + password + "'";
             try
             {
                 con.Open();

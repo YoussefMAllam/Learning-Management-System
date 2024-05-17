@@ -33,6 +33,9 @@ namespace LMS.Pages.Student
         }
 
         public IActionResult OnPostAddTask(string task, string ccode, string sem)
+        public string id { get; set; }
+
+        public void OnGet()
         {
           
             _db.AddTodo("202200126", task, ccode, sem); 
@@ -40,6 +43,8 @@ namespace LMS.Pages.Student
             dt = _db.ViewTasks("202200126");
 
             return RedirectToPage("./studenthome");
+            id= HttpContext.Session.GetString("ID");
+
         }
         
     }
