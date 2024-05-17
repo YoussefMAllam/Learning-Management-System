@@ -25,25 +25,23 @@ namespace LMS.Pages.Student
         public List<Task> Tasks { get; set; }
           
 
-        public void OnGet()
-        {
-
-            dt = _db.ViewTasks("202200126");
-
-        }
+        
 
         public IActionResult OnPostAddTask(string task, string ccode, string sem)
+        {
+            _db.AddTodo(id, task, ccode, sem);
+
+            dt = _db.ViewTasks(id);
+
+            return RedirectToPage("./studenthome");
+        }
         public string id { get; set; }
 
         public void OnGet()
         {
-          
-            _db.AddTodo("202200126", task, ccode, sem); 
+            dt = _db.ViewTasks(id);
 
-            dt = _db.ViewTasks("202200126");
-
-            return RedirectToPage("./studenthome");
-            id= HttpContext.Session.GetString("ID");
+            id = HttpContext.Session.GetString("ID");
 
         }
         
