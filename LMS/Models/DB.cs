@@ -8,7 +8,7 @@ namespace LMS.Models
     {
         public SqlConnection con {  get; set; }
         public DB() {
-            string constr = "";
+            string constr = "Data Source=G15;Initial Catalog=LMS;Integrated Security=True;Encrypt=False;TrustServerCertificate=True";
             con=new SqlConnection(constr);
         }
 
@@ -201,7 +201,7 @@ namespace LMS.Models
 
         public void gradeexam(string ccode, string sem, string stid, string grade)
         {
-            string Q = "insert into exam_submissions(ccode,sem,StID,grade) values('"+ccode+"','"+sem+"','"+stid+"',"+grade+")"''
+            string Q = "insert into exam_submissions(ccode,sem,StID,grade) values('"+ccode+"','"+sem+"','"+stid+"',"+grade+")"; 
             try
             {
                 con.Open();
