@@ -277,6 +277,33 @@ public void CompleteTask(string stid, string task)
     catch (SqlException sq) { }
     finally { con.Close(); }
 }
+public string getsemester()
+        {
+            string year=DateTime.Now.ToString("yyyy");
+            string month=DateTime.Now.ToString("MM");
+            if(month == "10" || month == "11" || month == "12" || month == "01")
+            {
+                return "Fall"+year;
+            }
+            else
+            {
+                return "Spring " + year;
+            }
+        }
+public DataTable getccode(string cname)
+        {
+            DataTable dt= new DataTable();
+            string Q = "select ccode from course_data where cname='"+cname+"'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
 
     }
 }
