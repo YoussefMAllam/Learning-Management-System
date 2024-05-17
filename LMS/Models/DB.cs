@@ -201,7 +201,7 @@ namespace LMS.Models
 
         public void gradeexam(string ccode, string sem, string stid, string grade)
         {
-            string Q = "insert into exam_submissions(ccode,sem,StID,grade) values('"+ccode+"','"+sem+"','"+stid+"',"+grade+")"''
+            string Q = "insert into exam_submissions(ccode,sem,StID,grade) values('" + ccode + "','" + sem + "','" + stid + "'," + grade + ")";
             try
             {
                 con.Open();
