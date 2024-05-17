@@ -15,6 +15,8 @@ namespace LMS.Pages.Student
 {
     public class studenthomeModel : PageModel
     {
+
+
         private DB _db;
         public DataTable dt { get; set; }
         public studenthomeModel()
