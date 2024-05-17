@@ -12,7 +12,3 @@ namespace LMS.Pages.Student
     }
 }
 
-class course
-{
-
-}

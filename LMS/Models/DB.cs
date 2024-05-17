@@ -7,9 +7,11 @@ namespace LMS.Models
     public class DB
     {
         public SqlConnection con {  get; set; }
+        
+
         public DB() {
-            string constr = "";
-            con=new SqlConnection(constr);
+            string constr = "Server=DESKTOP-50DDNCA;Database=LMS;";
+            con =new SqlConnection(constr);
         }
 
 
@@ -201,7 +203,8 @@ namespace LMS.Models
 
         public void gradeexam(string ccode, string sem, string stid, string grade)
         {
-            string Q = "insert into exam_submissions(ccode,sem,StID,grade) values('"+ccode+"','"+sem+"','"+stid+"',"+grade+")"''
+            string Q = "insert into exam_submissions(ccode,sem,StID,grade) values('"+ccode+"','"+sem+"','"+stid+"',"+grade+")'"
+                ;
             try
             {
                 con.Open();
@@ -224,6 +227,55 @@ namespace LMS.Models
             catch(SqlException sq) { }
             finally { con.Close(); }
         }
+        public void AddTodo(string stid, string task, string ccode, string sem)
+{
+    string Q = "insert into todo(StID,task,done,ccode,sem) values(@stid,@task,0,@ccode,@sem)";
+    try
+    {
+        con.Open();
+        SqlCommand cmd = new SqlCommand(Q, con);
+        cmd.Parameters.AddWithValue("@stid", stid);
+        cmd.Parameters.AddWithValue("@task", task);
+        cmd.Parameters.AddWithValue("@ccode", ccode);
+        cmd.Parameters.AddWithValue("@sem", sem);
+        cmd.ExecuteNonQuery();
+    }
+    catch (SqlException sq) { }
+    finally { con.Close(); }
+}
+
+public DataTable ViewTasks(string stid)
+{
+    string Q = "select task,done from todo where StID=@stid";
+    DataTable dt = new DataTable();
+            
+           
+            try
+    {
+        con.Open();
+        SqlCommand cmd = new SqlCommand(Q, con);
+        cmd.Parameters.AddWithValue("@stid", stid);
+        dt.Load(cmd.ExecuteReader());
+    }
+    catch (SqlException sq) { }
+    finally { con.Close(); }
+    return dt;
+}
+
+public void CompleteTask(string stid, string task)
+{
+    string Q = "update todo set done=1 where StID=@stid and task=@task";
+    try
+    {
+        con.Open();
+        SqlCommand cmd = new SqlCommand(Q, con);
+        cmd.Parameters.AddWithValue("@stid", stid);
+        cmd.Parameters.AddWithValue("@task", task);
+        cmd.ExecuteNonQuery();
+    }
+    catch (SqlException sq) { }
+    finally { con.Close(); }
+}
 
     }
 }
