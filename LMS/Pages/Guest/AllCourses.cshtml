@@ -1,7 +1,6 @@
 ﻿@page
-@model LMS.Pages.Teacher.FinalgradeModel
+@model LMS.Pages.Guest.AllCoursesModel
 @{
-    Layout = "teacherlayout";
 }
 <style>
     body {
@@ -118,39 +117,20 @@
             color: #fff;
         }
 </style>
+<form method="post" asp-page-handler="view">
 <table class="table table-borderless">
     <thead>
-    <th>Student Name</th>
-    <th>ID</th>
-    <th>Grade</th>
-    <th>Completion</th>
+    <th>Course Code</th>
+    <th>Course Name</th>
+    <th> </th>
     </thead>
-    @for(int i = 0; i < Model._dt.Rows.Count; i++)
+    @for(int i=0;i<Model.dt.Rows.Count;i++)
     {
-        <form method="post" asp-page-handler="Final">
-            <tr>
-            <td>
-                <input type="hidden" name="name" value="@Model._dt.Rows[i][0]"/>
-                <label for="name">@Model._dt.Rows[i][0]</label>
-            </td>
-                <td>
-                    <input type="hidden" name="id" value="@Model._dt.Rows[i][1]" />
-                    <label for="id">@Model._dt.Rows[i][1]</label>
-                </td>
-
-                @if (string.IsNullOrEmpty(Model._dt.Rows[i][2].ToString()))
-                {
-                    <td><input type="text" name="grade" placeholder="/4.00" /></td>
-                    <td><input type="submit" value="Done" /></td>
-                    
-                }
-                else
-                {
-                    <td>@Model._dt.Rows[i]["Grade"]</td>
-                }
-              
-            </tr>
-        </form>
+        <tr>
+            <td>@Model.dt.Rows[i][0]</td>
+            <td>@Model.dt.Rows[i][1]</td>
+            <td><input type="submit" value="View Material"/></td>
+        </tr>
     }
-
 </table>
+</form>

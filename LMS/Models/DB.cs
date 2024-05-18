@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 namespace LMS.Models
@@ -176,7 +177,7 @@ namespace LMS.Models
 
         public DataTable getIcourses(string id) {
             DataTable dt = new DataTable();
-            string Q = "select course_data.cname,course.ccode,course.semester,count(StID)\r\nfrom registered,course,instructor,course_data\r\nwhere\r\ncourse.ccode=registered.ccode and\r\ncourse.semester=registered.sem and\r\ncourse.inst_ID=instructor.ID and\r\ncourse_data.ccode=course.ccode and\r\ninst_ID=" + id + "\r\ngroup by course.ccode,course.semester,\r\ninstructor.Iname,course_data.cname";
+            string Q = "select course_data.cname,course.ccode,course.semester,count(StID)\r\nfrom registered,course,instructor,course_data\r\nwhere\r\ncourse.ccode=registered.ccode and\r\ncourse.semester=registered.sem and\r\ncourse.inst_ID=instructor.ID and\r\ncourse_data.ccode=course.ccode and\r\ninst_ID=" + id + " and sem='" + getsemester() + "'\r\ngroup by course.ccode,course.semester,\r\ninstructor.Iname,course_data.cname";
             try
             {
                 con.Open();
@@ -191,7 +192,7 @@ namespace LMS.Models
         public DataTable getungraded(string id)
         {
             DataTable dt = new DataTable();
-            string Q = "select ccode,Aname from assignment where assignment.ccode in(select distinct course.ccode from course where inst_ID=" + id + " and assignment.sem in(select distinct course.semester from course where inst_ID=" + id + ") and (done=0 or done is null))";
+            string Q = "select ccode,Aname from assignment where assignment.sem='" + getsemester() + "' and assignment.ccode in(select distinct course.ccode from course where inst_ID=" + id + " and assignment.sem in(select distinct course.semester from course where inst_ID=" + id + ") and (done=0 or done is null))";
             try
             {
                 con.Open();
@@ -206,7 +207,7 @@ namespace LMS.Models
         public DataTable getallcourseassignments(string ccode, string sem)
         {
             DataTable dt = new DataTable();
-            string Q = "select assignment.Aname,assignment.due_date,count(StID)\r\nfrom assignment,assignment_submissions\r\nwhere assignment.Aname=assignment_submissions.Aname and\r\nassignment.ccode=assignment_submissions.ccode and\r\nassignment.sem=assignment_submissions.sem and\r\nassignment.ccode='" + ccode + "' and assignment.sem='" + sem + "'\r\ngroup by assignment.Aname,assignment.due_date";
+            string Q = "select assignment.Aname,assignment.due_date,count(StID),count(grade) from assignment left join assignment_submissions on assignment.Aname = assignment_submissions.Aname and assignment.ccode = assignment_submissions.ccode and assignment.sem = assignment_submissions.sem where assignment.ccode = '" + ccode + "' and assignment.sem = '" + sem + "' group by assignment.Aname,assignment.due_date,assignment.done";
             try
             {
                 con.Open();
@@ -221,7 +222,7 @@ namespace LMS.Models
         public DataTable getassignmentsub(string aname, string ccode, string sem)
         {
             DataTable dt = new DataTable();
-            string Q = "select student.Sname,assignment_submissions.Submission,\r\nassignment_submissions.grade\r\nfrom assignment_submissions,student\r\nwhere StID=ID and Aname='" + aname + "' and ccode='" + ccode + "' and\r\nsem='" + sem + "'";
+            string Q = "select student.Sname,assignment_submissions.Submission,student.ID,\r\nassignment_submissions.grade\r\nfrom assignment_submissions,student\r\nwhere StID=ID and Aname='" + aname + "' and ccode='" + ccode + "' and\r\nsem='" + sem + "' Order by (Sname) asc";
             try
             {
                 con.Open();
@@ -249,9 +250,9 @@ namespace LMS.Models
         }
 
         //Teacher Manipulation Queries//
-        public void addassignment(string ccode, string sem, string aname, string due_date)
+        public void addassignment(string ccode, string sem, string aname, string due_date,string description)
         {
-            string Q = "insert into assignment(Aname,ccode,sem,due_date)\r\nvalues('" + aname + "','" + ccode + "','" + sem + "','" + due_date + "')";
+            string Q = "insert into assignment(Aname,ccode,sem,due_date,descript)\r\nvalues('" + aname + "','" + ccode + "','" + sem + "','" + due_date + "','"+description+"')";
             try
             {
                 con.Open();
@@ -277,7 +278,7 @@ namespace LMS.Models
 
         public void addannouncement(string ccode, string sem, string title, string content)
         {
-            string Q = "insert into announcement(ccode,sem,title,content)\r\nvalues('" + ccode + "','" + sem + "','" + title + "','" + content + "')";
+            string Q = "insert into announcements(ccode,sem,title,content)\r\nvalues('" + ccode + "','" + sem + "','" + title + "','" + content + "')";
             try
             {
                 con.Open();
@@ -329,7 +330,7 @@ namespace LMS.Models
 
         public void gradeexam(string ccode, string sem, string stid, string grade)
         {
-            string Q = "insert into exam_submissions(ccode,sem,StID,grade) values('" + ccode + "','" + sem + "','" + stid + "'," + grade + ")";
+            string Q = "update exam_submissions set grade=" + grade + " where ccode='" + ccode+"'and sem='" + sem + "' and StID='" + stid + "'";
             try
             {
                 con.Open();
@@ -339,7 +340,20 @@ namespace LMS.Models
             catch (SqlException sq) { }
             finally { con.Close(); }
         }
-
+        public DataTable getexamsub(string ccode, string sem)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select exam_submissions.StID, student.Sname, exam_submissions.grade from student,exam_submissions where student.ID=exam_submissions.StID and ccode='" + ccode + "' and sem='" + sem + "'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
         public void addfinalgrade(string ccode, string sem, string stid, string grade)
         {
             string Q = "insert into transcript(ccode,sem,StID,grade) values('" + ccode + "','" + sem + "','" + stid + "'," + grade + ")";
@@ -632,7 +646,7 @@ namespace LMS.Models
         }
         public DataTable get_ID(string email)
         {
-            DataTable dt=new DataTable();
+            DataTable dt = new DataTable();
             string Q = "select ID from student where email='" + email + "'";
             try
             {
@@ -643,6 +657,120 @@ namespace LMS.Models
             catch (SqlException sq) { }
             finally { con.Close(); }
             return dt;
+        }
+
+        public DataTable getfeedback(string ccode, string sem)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select feedback from registered where ccode='" + ccode + "' and sem='" + sem + "'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+
+        public DataTable getstudents(string ccode,string sem)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select sname,major,id,email from student,registered where student.ID=registered.StID and ccode='" + ccode + "' and sem='" + sem + "' order by sname";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
+
+        public DataTable getallcourses() {             
+            DataTable dt = new DataTable();
+            string Q = "select ccode,cname from course_data";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+                       catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
+
+        public DataTable getunattended(string ccode,string sem)
+        {
+            DataTable dt=new DataTable();
+            string Q = "select sname, StID from registered left join student on registered.StID=student.ID where ccode='"+ccode+"' and sem='"+sem+"' and StID not in(select StID from exam_submissions where ccode='"+ccode+"' and sem='"+sem+"')";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
+
+        public void addexamsub(string ccode, string sem, string stid)
+        {
+            string Q = "insert into exam_submissions(ccode,sem,StID) values('" + ccode + "','" + sem + "','" + stid + "')";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+        }
+
+        public DataTable getexaminedstudents(string ccode, string sem)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select Sname, exam_submissions.StID, transcript.grade \r\nfrom exam_submissions left join student on StID=ID left join transcript on transcript.StID=exam_submissions.StID and ((transcript.ccode=exam_submissions.ccode) or (transcript.ccode is null))\r\nwhere exam_submissions.ccode='"+ccode+"' and exam_submissions.sem='"+sem+"'\r\n order by Sname";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        } 
+        
+        public void addtranscript(string ccode, string sem, string ID,string grade)
+        {
+            DataTable dt = new DataTable();
+            string Q = "insert into transcript(StID,ccode,sem,grade) values("+ID+",'"+ccode+"','"+sem+"',"+grade+")";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+               
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
         }
 
     }

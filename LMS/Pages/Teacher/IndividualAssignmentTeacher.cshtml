@@ -104,18 +104,36 @@
         resize: vertical;
     }
 </style>
+<h1>@Model.aname</h1>
 <table class="table table-borderless">
     <thead>
     <th>Student Name</th>
     <th>Submission</th>
+    <th>ID</th>
     <th>Grade</th>
-    <th>Completion</th>
     </thead>
+    @for (int i = 0; i < Model._assignments.Rows.Count; i++)
+    {
     <tr>
-        <td>sample</td>
-        <td>sample</td>
-        <td><input type="text" placeholder="/10"/></td>
-        <td><button class="btn btn-success">Done</button></td>
+        <form method="post" asp-page-handler="Done">
+              <td><input type="text" value="@Model._assignments.Rows[i][0]" readonly/></td>
+              <td><input type="text" value="@Model._assignments.Rows[i][1]" readonly /></td>
+              <td><input type="text" value="@Model._assignments.Rows[i][2]" readonly name="ID" /></td>
+               
+                @if(string.IsNullOrEmpty(Model._assignments.Rows[i][3].ToString()))
+                {
+                    <td><input type="text" placeholder="/10" name="grade" /></td>
+                    <td><button class="btn btn-success" type="submit">Done</button></td>
+                }
+                else
+                {
+                    <td>@Model._assignments.Rows[i][3]</td>
+                }
+                
+                
+        </form>
     </tr>
+    }
+ 
 </table>
 
