@@ -116,8 +116,8 @@
     <button class="btn"><a id="removestudent-link"> remove students</a></button>
     <button class="btn"><a id="removeinstructor-link"> Remove Instructor</a></button>
     <button class="btn"><a id="addcourse-link">Add Course</a></button>
-        <button class="btn"><a id="addadmin-link">Add admin</a></button>
-        <button class="btn"><a id="addinstance-link">Add course instance</a></button>
+    <button class="btn"><a id="addadmin-link">Add admin</a></button>
+    <button class="btn"><a id="addinstance-link">Add course instance</a></button>
 </div>
 </div>
 
@@ -127,7 +127,7 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Add student</h2>
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" asp-page-handler="AddStudent">
                 <div class="form-group">
                     <label for="student-name">Student Name</label>
                     <input type="text" class="form-control" id="student-name" name="name" required>
@@ -163,7 +163,7 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>add instructor</h2>
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" asp-page-handler="Assignment">
                 <div class="form-group">
                     <label for="add-instructor-ID">ID</label>
                     <input type="text" class="form-control" id="assignment-name" name="title" required>
