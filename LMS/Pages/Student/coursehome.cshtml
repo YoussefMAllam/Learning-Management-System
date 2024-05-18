@@ -125,15 +125,20 @@
 </style>
 
 <div class="text-center">
-    <h1>coursename</h1>
+    <h1>@Model.coursename</h1>
     <table class="table table-borderless">
         <tr>
             <th>Material</th>
             <th> Link</th>
         </tr>
         <tr>
-            <td>sample</td>
-            <td>sample</td>
+            @for (int i = 0; i < Model._material.Rows.Count; i++)
+            {
+                @for (int j = 0; j < 2; j++)
+                {
+                    <td>@Model._material.Rows[i][j]</td>
+                }
+            }
         </tr>
 
     </table>
@@ -144,8 +149,13 @@
             
         </tr>
         <tr>
-            <td>Title</td>
-            <td>Content</td>
+            @for (int i = 0; i < Model._anouncements.Rows.Count; i++)
+            {
+                @for (int j = 0; j < 2; j++)
+                {
+                    <td>@Model._anouncements.Rows[i][j]</td>
+                }
+            }
             
         </tr>
 
@@ -159,18 +169,20 @@
             <th> due date</th>
             <th> Submission</th>
         </tr>
-        <tr>
-            <td>Assignmnet 1</td>
-            <td>1/2/2024</td>
-           
-            <td><a href="#" class="modal-link" data-modal="modal1">Submit</a></td>
-        </tr>
-        <tr>
-            <td>Assignmnet 2</td>
-            <td>1/2/2025</td>
-           
-            <td><a href="#" class="modal-link" data-modal="modal2">Submit</a></td>
-        </tr>
+        
+            @for (int i = 0; i < Model._assignments.Rows.Count; i++)
+            {
+            <tr>
+                
+                    <td>@Model._assignments.Rows[i][0]</td>
+                    <td>@Model._assignments.Rows[i][1]</td>
+                    <td><a href="#" class="modal-link" data-modal="modal1">Submit</a></td>
+                
+            </tr>
+            }
+            
+        
+       
 
 
     </table>
@@ -183,53 +195,40 @@
 
 
 
-  
 
+
+   
     <div id="modal1" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h3>Submit Assignment 1</h3>
-            <form>
-                
-               
-                <label for="assignment1-link">Link:</label>
-                <input type="text" id="assignment1-link" name="link">
-                <div class="button-container">
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
+            @for (int i = 0; i < Model._assignments.Rows.Count; i++)
+            {
+                <h3>Submit @Model._assignments.Rows[i][0]</h3>
+                <form method="post" asp-page-handler="Assignments">
+                    <input type="hidden" name="Aname" value="@Model._assignments.Rows[i][0]">
+                    <label for="Assignmentlink">Link:</label>
+                    <input type="text" id="Assignmentlink" name="Assignmentlink">
+                    <div class="button-container">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+            }
         </div>
     </div>
 
-    <div id="modal2" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Submit Assignment 2</h3>
-            <form>
-                
-                
-                <label for="assignment2-link">Link:</label>
-                <input type="text" id="assignment2-link" name="link">
-                <div class="button-container">
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
     <div id="feedback-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Give Feedback</h2>
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" asp-page-handler="Feedback">
                 
                 <div class="form-group">
-                    <label for="feedback-description">Feedback:</label>
-                    <textarea class="form-control" id="feedback-description" name="description" rows="3" required></textarea>
+                    <label for="description">Feedback:</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                 </div>
-                <div class="button-container">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                
             </form>
         </div>
     </div>
