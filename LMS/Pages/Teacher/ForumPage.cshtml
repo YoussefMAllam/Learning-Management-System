@@ -1,6 +1,7 @@
 ﻿@page
-@model LMS.Pages.Student.ForumPageModel
+@model LMS.Pages.Teacher.ForumPageModel
 @{
+    Layout = "TeacherLayout"; 
 }
 
 <body>
@@ -12,36 +13,26 @@
     <div class="main-container">
         <div class="main">
             <div class="header">
-                <h4 class="title">Title</h4>
-                <h6>Question 1</h6>
+                <h4 class="title">@Model.title</h4>
+                <h6>@Model.question</h6>
                 <div class="bottom">
-                    <p class="timestamp">2/5/2024</p>
-                    <p class="comment-count">4 comments</p>
+                    <p class="timestamp">@Model.date</p>
+                    <p class="comment-count">@Model.dt.Rows.Count.ToString()</p>
                 </div>
             </div>
             <textarea></textarea>
             <button>Add Comment</button>
             <div class="comments">
-                <div class="comment">
-                    <div class="top-comment">
-                        <hr />
-                        <p class="user">Allam</p>
-                        <p class="comment-ts">2/5/2024</p>
+                @for(int i = 0; i<Model.dt.Rows.Count; i++)
+                {
+                    <div class="comment">
+                        <div class="top-comment">
+                        </div>
+                        <div class="comment-content">
+                            @Model.dt.Rows[i][0]
+                        </div>
                     </div>
-                    <div class="comment-content">
-                        Comment kys kys kys
-                    </div>
-                </div>
-                <div class="comment">
-                    <div class="top-comment">
-                        <hr />
-                        <p class="user">Allam</p>
-                        <p class="comment-ts">2/5/2024</p>
-                    </div>
-                    <div class="comment-content">
-                        Comment kys kys kys
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>

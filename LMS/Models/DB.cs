@@ -802,6 +802,57 @@ namespace LMS.Models
             finally { con.Close(); }
         }
 
+        public DataTable getthreads()
+        {
+            DataTable dt = new DataTable();
+            string Q = "select title, ccode from thread\r\n";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
+
+        public DataTable getthreadcomments(string title, string ccode)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select thread_entries.comment from thread_entries where thread_entries.title = '"+title+"' and thread_entries.ccode = '"+ccode+"'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
+
+        public DataTable getdatename(string title,string ccode)
+        {
+            DataTable dt=new DataTable();
+            string Q = "select posted_on,sname,question from thread left join student on StID=ID where title='"+title+"' and ccode='"+ccode+"'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
+
     }
     
 }
