@@ -102,30 +102,8 @@
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" placeholder="Enter password" asp-for="@Model.password">
                         </div>
-                        <div class="form-group">
-                            <label for="role">Role</label>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="student" name="role" class="custom-control-input" value="student" asp-for="@Model.role">
-                                <label class="custom-control-label" for="student">Student</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="instructor" name="role" class="custom-control-input" value="instructor" asp-for="@Model.role">
-                                <label class="custom-control-label" for="instructor">Instructor</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="admin" name="role" class="custom-control-input" value="admin" asp-for="@Model.role">
-                                <label class="custom-control-label" for="admin">admin</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="rememberMe">
-                                <label class="custom-control-label" for="rememberMe">Remember me</label>
-                            </div>
-                        </div>
                         <button type="submit" class="btn btn-primary">Login</button>
-                        <a href="#" class="btn btn-link">Forgot password?</a>
-                        <p>Continue as a guest<a href="#"></p>
+                        <p><a href="./Guest/Allcourses">Continue as Guest</a></p>
                     </form>
                 </div>
             </div>

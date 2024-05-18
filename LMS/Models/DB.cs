@@ -310,7 +310,7 @@ namespace LMS.Models
         public DataTable getungraded(string id)
         {
             DataTable dt = new DataTable();
-            string Q = "select ccode,Aname from assignment where assignment.ccode in(select distinct course.ccode from course where inst_ID=" + id + " and assignment.sem in(select distinct course.semester from course where inst_ID=" + id + ") and (done=0 or done is null))";
+            string Q = "select ccode,Aname from assignment where assignment.sem='" + getsemester() + "' and assignment.ccode in(select distinct course.ccode from course where inst_ID=" + id + " and assignment.sem in(select distinct course.semester from course where inst_ID=" + id + ") and (done=0 or done is null))";
             try
             {
                 con.Open();
@@ -326,7 +326,7 @@ namespace LMS.Models
         public DataTable getallcourseassignments(string ccode, string sem)
         {
             DataTable dt = new DataTable();
-            string Q = "select assignment.Aname,assignment.due_date,count(StID)\r\nfrom assignment,assignment_submissions\r\nwhere assignment.Aname=assignment_submissions.Aname and\r\nassignment.ccode=assignment_submissions.ccode and\r\nassignment.sem=assignment_submissions.sem and\r\nassignment.ccode='" + ccode + "' and assignment.sem='" + sem + "'\r\ngroup by assignment.Aname,assignment.due_date";
+            string Q = "select assignment.Aname,assignment.due_date,count(StID),count(grade) from assignment left join assignment_submissions on assignment.Aname = assignment_submissions.Aname and assignment.ccode = assignment_submissions.ccode and assignment.sem = assignment_submissions.sem where assignment.ccode = '" + ccode + "' and assignment.sem = '" + sem + "' group by assignment.Aname,assignment.due_date,assignment.done";
             try
             {
                 con.Open();
@@ -341,7 +341,7 @@ namespace LMS.Models
         public DataTable getassignmentsub(string aname, string ccode, string sem)
         {
             DataTable dt = new DataTable();
-            string Q = "select student.Sname,assignment_submissions.Submission,\r\nassignment_submissions.grade\r\nfrom assignment_submissions,student\r\nwhere StID=ID and Aname='" + aname + "' and ccode='" + ccode + "' and\r\nsem='" + sem + "'";
+            string Q = "select student.Sname,assignment_submissions.Submission,student.ID,\r\nassignment_submissions.grade\r\nfrom assignment_submissions,student\r\nwhere StID=ID and Aname='" + aname + "' and ccode='" + ccode + "' and\r\nsem='" + sem + "' Order by (Sname) asc";
             try
             {
                 con.Open();
@@ -369,7 +369,7 @@ namespace LMS.Models
         }
 
         //Teacher Manipulation Queries//
-        public void addassignment(string ccode, string sem, string aname, string due_date)
+        public void addassignment(string ccode, string sem, string aname, string due_date,string description)
         {
             string Q = "insert into assignment(Aname,ccode,sem,due_date)\r\nvalues('" + aname + "','" + ccode + "','" + sem + "'," + due_date + ")";
             
@@ -398,7 +398,7 @@ namespace LMS.Models
 
         public void addannouncement(string ccode, string sem, string title, string content)
         {
-            string Q = "insert into announcement(ccode,sem,title,content)\r\nvalues('" + ccode + "','" + sem + "','" + title + "','" + content + "')";
+            string Q = "insert into announcements(ccode,sem,title,content)\r\nvalues('" + ccode + "','" + sem + "','" + title + "','" + content + "')";
             try
             {
                 con.Open();
@@ -450,8 +450,7 @@ namespace LMS.Models
 
         public void gradeexam(string ccode, string sem, string stid, string grade)
         {
-            string Q = "insert into exam_submissions(ccode,sem,StID,grade) values('" + ccode + "','" + sem + "','" + stid + "'," + grade + ")'"
-                ;
+            string Q = "update exam_submissions set grade=" + grade + " where ccode='" + ccode+"'and sem='" + sem + "' and StID='" + stid + "'";
             try
             {
                 con.Open();
@@ -461,7 +460,20 @@ namespace LMS.Models
             catch (SqlException sq) { }
             finally { con.Close(); }
         }
-
+        public DataTable getexamsub(string ccode, string sem)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select exam_submissions.StID, student.Sname, exam_submissions.grade from student,exam_submissions where student.ID=exam_submissions.StID and ccode='" + ccode + "' and sem='" + sem + "'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
         public void addfinalgrade(string ccode, string sem, string stid, string grade)
         {
             string Q = "insert into transcript(ccode,sem,StID,grade) values('" + ccode + "','" + sem + "','" + stid + "'," + grade + ")";
@@ -647,7 +659,7 @@ namespace LMS.Models
         }
         public DataTable get_ID(string email)
         {
-            DataTable dt=new DataTable();
+            DataTable dt = new DataTable();
             string Q = "select ID from student where email='" + email + "'";
             try
             {

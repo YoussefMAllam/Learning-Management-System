@@ -134,26 +134,28 @@
                 <tr>
                     <th>Threads</th>
                     <th>Courses</th>
+                    <th>View</th>
                 </tr>
             </thead>
-            <tbody>
+            @for(int i=0;i<Model.dt.Rows.Count;i++)
+            {
+                <form method="post" asp-page-handler="View">
                 <tr>
                     <td>
-                        <a href="/Teacher/ForumPage">Thread 1</a>
+                        <input type="hidden" value="@Model.dt.Rows[i][0]" name="thread"/>
+                        <label for="thread">@Model.dt.Rows[i][0]</label>
                     </td>
                     <td>
-                        <a>Course 1</a>
+                        <input type="hidden" value="@Model.dt.Rows[i][1]" name="ccode" />
+                        <label for="ccode">@Model.dt.Rows[i][1]</label>
+                    </td>
+                      
+                    <td>
+                        <input type="submit" class="btn" value="View Thread"/>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <a href="/Teacher/ForumPage">Thread 2</a>
-                    </td>
-                    <td>
-                        <a>Course 2</a>
-                    </td>
-                </tr>
-            </tbody>
+                </form>
+            }
         </table>
         <div class="add-thread-button">
             <a href="AddForumPage">Add Thread</a>

@@ -120,19 +120,34 @@
             color: #fff;
         }
 </style>
+<form method="post" asp-page-handler="Select">
+
+
 <table class="table table-borderless">
     <thead>
     <th>Assignment Name</th>
-    <th>Assignment No.</th>
     <th>Due Date</th>
-    <th># of Submissions</th>
-    <th>Completion</th>
+    <th>Total Submissions</th>
+    <th>Graded Submissions</th>
     </thead>
-    <tr>
-        <td><a href="IndividualAssignmentTeacher">sample</a></td>
-        <td>sample</td>
-        <td>sample</td>
-        <td>sample</td>
-        
-        <td><button class="btn btn-success">Done</button></td>
-    </tr>
+    @for(int i = 0; i < @Model._assignments.Rows.Count; i++)
+    {
+        <tr>
+            @for(int j = 0; j < @Model._assignments.Columns.Count; j++)
+            {
+                if (j == 0)
+                {
+                    <td>
+                        <input type="submit" value="@Model._assignments.Rows[i][j]" name="Aname" />
+                    </td>
+                }
+                else
+                {
+                    <td>@Model._assignments.Rows[i][j]</td>
+                }
+              
+            }
+        </tr>
+    }
+</form>
+    
