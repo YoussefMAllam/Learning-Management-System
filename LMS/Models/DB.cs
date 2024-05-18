@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components.Infrastructure;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Xml.Linq;
@@ -364,6 +365,17 @@ namespace LMS.Models
             catch (SqlException sq) { }
             finally { con.Close(); }
         }
+        public void AddStudent(string id, string name, string major, string batch, string email, string pass)
+        {
+            string Q = "insert into student(ID,Sname,Major,batch,email,pass) values(" + id + ", " + name + ", " + major + ", " + batch + ", " + email + ", " + pass + ")";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
         public void AddTodo(string stid, string task, string ccode, string sem)
         {
             string Q = "insert into todo(StID,task,done,ccode,sem) values(@stid,@task,0,@ccode,@sem)";
@@ -502,4 +514,6 @@ namespace LMS.Models
         }
 
     }
+    
 }
+
