@@ -124,10 +124,64 @@
     <th>Email</th>
     <th>Password</th>
     </thead>
-    <tr>
-        <td>sample</a></td>
-        <td>sample</td>
-        <td>sample</td>
-        <td><input type="submit" value="Change" class="btn btn-success" /></td>
-    </tr>
+    @for (int i = 0; i < Model._students.Rows.Count; i++)
+    {
+        <tr>
+
+            <td>@Model._students.Rows[i][0]</td>
+            <td>@Model._students.Rows[i][1]</td>
+            <td>@Model._students.Rows[i][2]</td>
+            <td><a href="#" class="modal-link" data-modal="modal1">Submit</a></td>
+
+        </tr>
+
+    }
 </table>
+
+
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Submit @Model._students.Rows[i][0]</h3>
+        <form method="post" asp-page-handler="ChangePassword">
+                <input type="hidden" name="id" value="@Model._students.Rows[i][1]">
+                <label for="pass">New Password:</label>
+                <input type="text" id="pass" name="password">
+                <div class="button-container">
+                    <button type="submit">Submit</button>
+                </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    const modals = document.querySelectorAll('.modal');
+    const links = document.querySelectorAll('.modal-link');
+    const closeButtons = document.querySelectorAll('.close');
+
+    // Attach event listeners to all links
+    links.forEach((link) => {
+        link.onclick = function (event) {
+            event.preventDefault();
+            const modalId = this.getAttribute('data-modal');
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'block';
+        };
+    });
+
+    // Attach event listeners to all close buttons
+    closeButtons.forEach((button) => {
+        button.onclick = function () {
+            const modal = this.parentNode.parentNode;
+            modal.style.display = 'none';
+        };
+    });
+
+    // When the user clicks anywhere outside of the modals, close them
+    window.onclick = function (event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+        }
+    };
+</script>
