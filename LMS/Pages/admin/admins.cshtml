@@ -118,13 +118,34 @@
         }
 </style>
 
+
 <table class="table table-borderless">
     <thead>
-    <th>Email</th>
-    <th>Password</th>
+    <th>Admin Email</th>
+    <th>ID</th>
+    <th>New Password</th>
+    <th>Change Password</th>
     </thead>
-    <tr>
-        <td>sample</td>
-        <td><input type="submit" value="Change" class="btn btn-success" /></td>
-    </tr>
+    @for (int i = 0; i < Model._admins.Rows.Count; i++)
+    {
+        <tr>
+            <form method="post" asp-page-handler="ChangePassword">
+            <td>
+                <input type="hidden" name="Sname" value="@Model._admins.Rows[i][0]" readonly />
+                <label for="Sname">@Model._admins.Rows[i][0]</label>
+            </td>
+            <td>
+                <input type="hidden" name="id" value="@Model._admins.Rows[i][1]" readonly />
+                <label for="id">@Model._admins.Rows[i][1]</label>
+            </td>
+            <td>
+                <input type="text" id="newpass" name="password" />
+            </td>
+            <td>
+                <button class="btn btn-success" type="submit">Change</button>
+            </td>
+            </form>
+        </tr>
+
+    }
 </table>

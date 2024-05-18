@@ -122,12 +122,34 @@
     <th>Student Name</th>
     <th>ID</th>
     <th>Email</th>
-    <th>Password</th>
+    <th>New Password</th>
+    <th>Change Password</th>
     </thead>
-    <tr>
-        <td>sample</a></td>
-        <td>sample</td>
-        <td>sample</td>
-        <td><input type="submit" value="Change" class="btn btn-success" /></td>
-    </tr>
+    @for (int i = 0; i < Model._students.Rows.Count; i++)
+    {
+        <tr>
+            <form method="post" asp-page-handler="ChangePassword">
+                <td>
+                    <input type="hidden" name="Sname" value="@Model._students.Rows[i][0]" readonly/>
+                <label for="Sname">@Model._students.Rows[i][0]</label>
+                </td>
+                <td>
+                <input type="hidden" name="id" value="@Model._students.Rows[i][1]" readonly />
+                <label for="id">@Model._students.Rows[i][1]</label>
+                </td>
+                <td>
+                <input type="hidden" name="email" value="@Model._students.Rows[i][2]" readonly />
+                <label for="email">@Model._students.Rows[i][2]</label>
+                </td>
+                <td>
+                    <input type="text" id="newpass" name="password" />
+                </td>
+                <td>
+                    <button class="btn btn-success" type="submit">Change</button>
+                </td>
+            </form>
+        </tr>
+
+    }
 </table>
+

@@ -29,7 +29,7 @@ namespace LMS.Models
         public DataTable getAllCourses()
         {
             DataTable dt = new DataTable();
-            string Q = "select course_data.cname, course.ccode, semester from course";
+            string Q = "select course_data.cname, course.ccode, semester from course inner join course_data on course.ccode=course_data.ccode";
             try
             {
                 con.Open();
@@ -487,9 +487,211 @@ namespace LMS.Models
            
             finally { con.Close(); }
         }
+
+
+        //ADMIN HOME FUNCTIONS
         public void AddStudent(string id, string name, string major, string batch, string email, string pass)
         {
-            string Q = "insert into student(ID,Sname,Major,batch,email,pass) values(" + id + ", " + name + ", " + major + ", " + batch + ", " + email + ", " + pass + ")";
+            string Q = "insert into student(ID,Sname,Major,batch,email,pass) values(" + id + ", '" + name + "', '" + major + "', " + batch + ", '" + email + "', '" + pass + "')";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+        public void AddInstructor(string id, string name, string email, string pass)
+        {
+            string Q = " insert into instructor(Iname, ID, email, pass) values('"+name+"',"+id+",'"+email+"','"+pass+"')";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+        public void RemoveStudent(string id)
+        {
+            string Q = "delete from student where ID="+id;
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+        public void RemoveInstructor(string id)
+        {
+            string Q = "delete from instructor where ID=" + id;
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+        public void RemoveAdmin(string id)
+        {
+            string Q = "delete from admin where ID=" + id;
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+        public void AddCourse(string CCode, string CName, string Prereqs, string credits)
+        {
+            string Q = "insert into course_data(ccode, cname, [pre-requisites],credits) values('"+CCode+"','"+CName+"','"+Prereqs+"',"+credits+")";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+        public void AddAdmin(string email, string password, string id)
+        {
+            string Q = "insert into admin(email, pass,Id) values('"+email+"','"+password+"',"+id+")";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+        public void AddCourseInstance(string ccode, string semester, string id)
+        {
+            string Q = "insert into course(ccode, semester,inst_ID) values('"+ccode+"','"+semester+"','"+id+"')";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+        //END OF ADMIN HOME FUNCTIONS
+
+        //ADMIN EDIT STUDENTS
+        public DataTable getAllStudents()
+        {
+            DataTable dt = new DataTable();
+            string Q = "select Sname,ID,email from student";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+        public void ChangeStudentPassword(string id, string password)
+        {
+            string Q = "update student set pass = '"+password+"' where ID = "+id;
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+
+
+        //ADMIN EDIT INSTRUCTORS
+        public DataTable getAllInstructors()
+        {
+            DataTable dt = new DataTable();
+            string Q = "select Iname,ID,email from instructor";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+        public void ChangeInstructorPassword(string id, string password)
+        {
+            string Q = "update instructor set pass = '"+password+"' where ID = "+id;
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+
+        //ADMIN EDIT ADMIN
+        public DataTable getAllAdmins()
+        {
+            DataTable dt = new DataTable();
+            string Q = "select email,Id from admin";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+        public DataTable AgetAllCourses()
+        {
+            DataTable dt = new DataTable();
+            string Q = "select cname, ccode,[pre-requisites], credits from course_data";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+        public void ChangeAdminPassword(string id, string password)
+        {
+            string Q = "update admin set pass='"+password+"' where Id="+id;
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+
+        //ADMIN COURSES
+        public DataTable getCourseInstances(string ccode)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select instructor.Iname, course.semester from course inner join instructor on course.inst_ID= instructor.ID where ccode = '"+ccode+"'";
             try
             {
                 con.Open();
@@ -527,7 +729,10 @@ namespace LMS.Models
             }
             catch (SqlException sq) { }
             finally { con.Close(); }
+            return dt;
         }
+
+
         public void AddTodo(string stid, string task, string ccode, string sem)
         {
             string Q = "insert into todo(StID,task,done,ccode,sem) values(@stid,@task,0,@ccode,@sem)";
