@@ -36,13 +36,53 @@ namespace LMS.Pages.Teacher
             _db.registerstudent(ccode,sem,id);
             return RedirectToPage("./coursehome");
         }
-        public IActionResult OnPostAssignment(string title, string link, string date)
+        public IActionResult OnPostAssignment(string title, string link, string date,string descript)
         {
             ccode=HttpContext.Session.GetString("ccode");
             sem=HttpContext.Session.GetString("sem");
-            _db.addassignment(ccode,sem,title,date);
+            _db.addassignment(ccode,sem,title,date,descript);
             return RedirectToPage("./coursehome");
         }
 
+        public IActionResult OnPostAnnouncement(string title, string description)
+        {
+            ccode=HttpContext.Session.GetString("ccode");
+            sem=HttpContext.Session.GetString("sem");
+            _db.addannouncement(ccode,sem,title,description);
+            return RedirectToPage("./coursehome");
+        }
+
+        public IActionResult OnPostMaterial(string title, string link)
+        {
+            ccode=HttpContext.Session.GetString("ccode");
+            sem=HttpContext.Session.GetString("sem");
+            _db.addmaterial(ccode,title,link);
+            return RedirectToPage("./coursehome");
+        }
+
+        public IActionResult OnPostViewAssignments()
+        {
+            return RedirectToPage("./AssignmentsManager");
+        }
+
+        public IActionResult OnPostViewExams()
+        {
+            return RedirectToPage("./ExamManager");
+        }
+
+        public IActionResult OnPostFinalGrade()
+        {
+            return RedirectToPage("./FinalGrade");
+        }
+
+        public IActionResult OnPostViewFeedback()
+        {
+            return RedirectToPage("./FeedbackView");
+        }
+
+        public IActionResult OnPostViewStudents()
+        {
+            return RedirectToPage("./ViewStudents");
+        }
     }
 }

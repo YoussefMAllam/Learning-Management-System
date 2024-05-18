@@ -30,7 +30,7 @@ namespace LMS.Pages.Teacher
             HttpContext.Session.SetString("sem", _db.getsemester());
             string ccode= HttpContext.Session.GetString("ccode");
             string sem= HttpContext.Session.GetString("sem");
-            return RedirectToPage("./coursehome", new { ccode, sem });
+            return RedirectToPage("./coursehome", new { ccode, sem});
         }
     }
 }

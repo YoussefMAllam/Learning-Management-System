@@ -131,15 +131,15 @@
             <th>Material</th>
             <th> Link</th>
         </tr>
-        <tr>
         @for (int i = 0; i < Model._material.Rows.Count; i++)
         {
+        <tr>
             @for(int j = 0; j < 2; j++)
             {
                 <td>@Model._material.Rows[i][j]</td>
             }
-        }
         </tr>
+        }
        
     </table>
     <br>
@@ -151,10 +151,39 @@
         <button class="btn"><a id="addmaterial-link">Add Material</a></button>
     </div>
     <br>
-    <div class="button-group">
-        <button type="submit" class="btn btn-primary"><a href="AssignmentsManager">View Assignments</a></button>
-        <button type="submit" class="btn btn-primary"><a href="ExamManager">View Exams</a></button>
-        <button type="submit" class="btn btn-primary"><a href="Finalgrade">Put final grade</a></button>
+    <div class="button-group" style="margin-left:auto; margin-right:auto;">
+        <table class="button-container" style="margin-left:auto; margin-right:auto;">
+            <tr>
+                <td>
+                    <form method="post" asp-page-handler="ViewAssignments">
+                        <button type="submit" class="btn btn-primary">View Assignments</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" asp-page-handler="ViewExams">
+                        <button type="submit" class="btn btn-primary">View Exams</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" asp-page-handler="FinalGrade">
+                        <button type="submit" class="btn btn-primary">Put final grade</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" asp-page-handler="ViewFeedback">
+                        <button type="submit" class="btn btn-primary">View Feedback</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" asp-page-handler="ViewStudents">
+                        <button type="submit" class="btn btn-primary">View Students</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+       
+        
+        
     </div>
 </div>
     <div id="addstudent-modal" class="modal">
@@ -183,6 +212,10 @@
                     <label for="assignment-name">Name</label>
                     <input type="text" class="form-control" id="assignment-name" name="title" required>
                 </div>
+            <div class="form-group">
+                <label for="assignment-name">Description</label>
+                <input type="text" class="form-control" id="assignment-description" name="descript" required>
+            </div>
                 <div class="form-group">
                     <label for="link-upload">Due Date</label>
                     <textarea class="form-control" id="link-upload" name="date" rows="3" required></textarea>
@@ -195,7 +228,7 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Add Anouncement</h2>
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" asp-page-handler="Announcement">
                 <div class="form-group">
                     <label for="anouncement">Title:</label>
                     <input type="text" class="form-control" id="anouncement title" name="title" required>
@@ -214,14 +247,14 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Add material</h2>
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" asp-page-handler="Material">
                 <div class="form-group">
                     <label for="course-name"> Name</label>
-                    <input type="text" class="form-control" id="course-name" name="name" required>
+                    <input type="text" class="form-control" id="course-name" name="title" required>
                 </div>
                 <div class="form-group">
                     <label for="course-id">Link</label>
-                    <textarea class="form-control" id="course-id" name="id" rows="3" required></textarea>
+                    <textarea class="form-control" id="course-id" name="link" rows="3" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

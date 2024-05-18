@@ -1,5 +1,5 @@
 ﻿@page
-@model LMS.Pages.Teacher.ExamManagerModel
+@model LMS.Pages.Teacher.FeedbackViewModel
 @{
     Layout = "teacherlayout";
 }
@@ -120,28 +120,20 @@
 </style>
 <table class="table table-borderless">
     <thead>
-    <th>ID</th>
-    <th>Student Name</th>
-    <th>Grade</th>
-    <th>Completion</th>
+        <th>No.</th>
+        <th>Comment</th>
     </thead>
-    @for (int i = 0; i < Model.dt.Rows.Count; i++)
-    {
+    @{int count = 0;}
+        @for(int i = 0; i < Model.dt.Rows.Count; i++){
         <tr>
-            <form method="post" asp-page-handler="Send">
-                <td><input type="text" value="@Model.dt.Rows[i][0]" readonly name="id" /></td>
-                <td>@Model.dt.Rows[i][1]</td>
-                @if (string.IsNullOrEmpty(Model.dt.Rows[i][2].ToString()))
-                {
-                    <td><input type="number" placeholder="/100" name="grade" /> </td>
-                    <td><input type="submit" name="name" value="Done" /></td>
-                }
-                else
-                {
-                    <td>@Model.dt.Rows[i][2]</td>
-                }
-            </form>
+            
+            @if (!string.IsNullOrEmpty(Model.dt.Rows[i][0].ToString()))
+            {
+                <td>@(count + 1)</td>   
+                <td>@Model.dt.Rows[i][0]</td>
+                count++;
+            }
         </tr>
     }
+    
 </table>
-
