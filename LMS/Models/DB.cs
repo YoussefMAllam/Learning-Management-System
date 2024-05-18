@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Xml.Linq;
 namespace LMS.Models
 {
@@ -328,8 +329,7 @@ namespace LMS.Models
 
         public void gradeexam(string ccode, string sem, string stid, string grade)
         {
-            string Q = "insert into exam_submissions(ccode,sem,StID,grade) values('" + ccode + "','" + sem + "','" + stid + "'," + grade + ")'"
-                ;
+            string Q = "update exam_submissions set grade=" + grade + " where ccode='" + ccode+"'and sem='" + sem + "' and StID='" + stid + "'";
             try
             {
                 con.Open();
@@ -511,6 +511,54 @@ namespace LMS.Models
             }
             finally { con.Close(); }
             return dt;
+        }
+
+        public DataTable getallcourses() {             
+            DataTable dt = new DataTable();
+            string Q = "select ccode,cname from course_data";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+                       catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
+
+        public DataTable getunattended(string ccode,string sem)
+        {
+            DataTable dt=new DataTable();
+            string Q = "select sname, StID from registered left join student on registered.StID=student.ID where ccode='"+ccode+"' and sem='"+sem+"' and StID not in(select StID from exam_submissions where ccode='"+ccode+"' and sem='"+sem+"')";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
+
+        public void addexamsub(string ccode, string sem, string stid)
+        {
+            string Q = "insert into exam_submissions(ccode,sem,StID) values('" + ccode + "','" + sem + "','" + stid + "')";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
         }
 
     }
