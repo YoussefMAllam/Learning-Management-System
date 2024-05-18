@@ -24,7 +24,7 @@ namespace LMS.Models
         public DataTable getAllCourses()
         {
             DataTable dt = new DataTable();
-            string Q = "select course_data.cname, course.ccode, semester from course";
+            string Q = "select course_data.cname, course.ccode, semester from course inner join course_data on course.ccode=course_data.ccode";
             try
             {
                 con.Open();
@@ -528,7 +528,21 @@ namespace LMS.Models
         public DataTable getAllAdmins()
         {
             DataTable dt = new DataTable();
-            string Q = "select Iname,ID,email from instructor";
+            string Q = "select email,Id from admin";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+        public DataTable AgetAllCourses()
+        {
+            DataTable dt = new DataTable();
+            string Q = "select cname, ccode,[pre-requisites], credits from course_data";
             try
             {
                 con.Open();
@@ -541,7 +555,7 @@ namespace LMS.Models
         }
         public void ChangeAdminPassword(string id, string password)
         {
-            string Q = "update instructor set pass = '" + password + "' where ID = " + id;
+            string Q = "update admin set pass='"+password+"' where Id="+id;
             try
             {
                 con.Open();
@@ -552,6 +566,21 @@ namespace LMS.Models
             finally { con.Close(); }
         }
 
+        //ADMIN COURSES
+        public DataTable getCourseInstances(string ccode)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select instructor.Iname, course.semester from course inner join instructor on course.inst_ID= instructor.ID where ccode = '"+ccode+"'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
 
 
         public void AddTodo(string stid, string task, string ccode, string sem)
