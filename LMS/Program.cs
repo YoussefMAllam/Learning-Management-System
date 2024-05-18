@@ -1,6 +1,16 @@
 using LMS.Models;
 var builder = WebApplication.CreateBuilder(args);
+ void ConfigureServices(IServiceCollection services)
+{
+    services.AddSession();
+    services.AddControllersWithViews();
+}
 
+ void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    app.UseSession();
+    // other middleware...
+}
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDistributedMemoryCache();

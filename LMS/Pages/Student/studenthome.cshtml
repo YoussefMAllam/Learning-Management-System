@@ -117,6 +117,7 @@
             background-color: #6495ed;
             color: #fff;
         }
+
 </style>
 <div class="container">
     <h1>Welcome <span class="name">Name</span></h1>
@@ -126,34 +127,29 @@
                 <thead class="bg-black text-light">
                 <th>#</th>
                 <th>Task</th>
-                <th>Course Code</th>
-                <th>Semester</th>
                 <th>Completion</th>
                 </thead>
-                @for (int i = 0;i< Model.dt.Rows.Count;i++)
-                    {
-
+                @for (int i = 0; i < Model.dt.Rows.Count; i++)
+                {
                     <tr>
                         <th scope="row">@i</th>
-                        <td>0</td>
-                        @for (int j=0;j<5;j++)
-                        {
-                            <td>@Model.dt.Rows[i][j]</td>
-                        }
+                        <td>@Model.dt.Rows[i][0]</td>
+                       
                     </tr>
                 }
             </table>
         </form>
     </div>
     <form>
-            </table>
+        <table>
             <div class="button-container">
                 <div class="add-task-button">
                     <button type="button" id="add-task-link">Add task</button>
                 </div>
             </div>
-        </form>
-    </div>
+        </table>
+    </form>
+</div>
 </div>
 <div id="add-task-modal" class="modal">
     <div class="modal-content">
@@ -204,3 +200,4 @@
         }
     };
 </script>
+
