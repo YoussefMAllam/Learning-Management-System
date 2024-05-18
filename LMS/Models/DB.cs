@@ -561,6 +561,40 @@ namespace LMS.Models
             finally { con.Close(); }
         }
 
+        public DataTable getexaminedstudents(string ccode, string sem)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select Sname, exam_submissions.StID, transcript.grade \r\nfrom exam_submissions left join student on StID=ID left join transcript on transcript.StID=exam_submissions.StID and ((transcript.ccode=exam_submissions.ccode) or (transcript.ccode is null))\r\nwhere exam_submissions.ccode='"+ccode+"' and exam_submissions.sem='"+sem+"'\r\n order by Sname";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        } 
+        
+        public void addtranscript(string ccode, string sem, string ID,string grade)
+        {
+            DataTable dt = new DataTable();
+            string Q = "insert into transcript(StID,ccode,sem,grade) values("+ID+",'"+ccode+"','"+sem+"',"+grade+")";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+               
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+        }
+
     }
     
 }
