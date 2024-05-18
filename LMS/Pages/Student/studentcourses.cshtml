@@ -129,38 +129,62 @@
     <th>Semester</th>
     
     </thead>
-    <tr>
-        <td><a href="coursehome">sample</a></td>
-        <td>sample</td>
-        <td>sample</td>
-      
-    </tr>
+    @if (Model.filter)
+    {
+        for (int i=0; i < Model.dt1.Rows.Count; i++)
+        {
+            <tr>
+
+                @for (int j = 0; j < 3; j++)
+                {
+                    <td>
+                        @Model.dt1.Rows[i][j]
+                    </td>
+                }
+            </tr>
+        }
+    }
+    else
+    {
+        for (int i = 0; i < Model.dt.Rows.Count; i++)
+        {
+            <tr>
+
+                @for (int j = 0; j < 3; j++)
+                {
+                    <td>
+                        @Model.dt.Rows[i][j]
+                    </td>
+                }
+            </tr>
+        }
+    }
 </table>
 
 <div id="filter-modal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Search for your course</h2>
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" asp-page-handler="ShowCourses">
             <div class="form-group">
                 
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="student" name="role" class="custom-control-input">
-                    <label class="custom-control-label" for="student">Registered</label>
-               
-              
-               
-            <div class="form-group">
-                <label for="filter-title">Course Code:</label>
-                <input type="text" class="form-control" id="filter-title" name="title" required>
-            </div>
+                    <input type="radio" id="student" name="all" value="a" class="custom-control-input">
+                    <label class="custom-control-label" for="student">All Courses</label><br />
+                    <input type="radio" id="student" name="all" value=" " class="custom-control-input" checked>
+                    <label class="custom-control-label" for="student">Registered Courses</label>
+
+                <div class="form-group">
+                    <label for="filter-title">Course Code:</label>
+                    <input type="text" class="form-control" id="filter-title" name="CCode">
+                </div>
                         <div class="form-group">
                             <label for="filter-title">Course Name:</label>
-                            <input type="text" class="form-control" id="filter-title" name="title" required>
+                            <input type="text" class="form-control" id="filter-title" name="CName">
                         </div>
                         <div class="form-group">
                             <label for="filter-title">Semester:</label>
-                            <input type="text" class="form-control" id="filter-title" name="title" required>
+                            <input type="text" class="form-control" id="filter-title" name="Sem">
                         </div>
            
             <button type="submit" class="btn btn-primary">Submit</button>

@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using Microsoft.AspNetCore.Components.Infrastructure;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -13,10 +15,135 @@ namespace LMS.Models
         public DB() {
             string constr = " Data Source =DESKTOP-50DDNCA; Initial Catalog = LMS; Integrated Security = True; TrustServerCertificate = True";
             con = new SqlConnection(constr);
+            string constr = "Data Source=G15;Initial Catalog=LMS;Integrated Security=True;Encrypt=False;TrustServerCertificate=True";
+            con = new SqlConnection(constr);
         }
 
 
-        //Loging in//
+        //Student Courses
+        //Query for all
+        public DataTable getAllCourses()
+        {
+            DataTable dt = new DataTable();
+            string Q = "select course_data.cname, course.ccode, semester from course";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+        //Query for registered
+        public DataTable getRegisteredCourses(string id, string sem)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select course_data.cname, course.ccode, semester from course\r\ninner join course_data on course.ccode=course_data.ccode\r\nwhere course.ccode in (select ccode from registered where StID=" + id + " and sem='" + sem + "') ";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+        //Query for Registered and search by course code
+        public DataTable getRegisteredAndCodeCourses(string id, string sem, string CCode)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select course_data.cname, course.ccode, semester from course\r\ninner join course_data on course.ccode=course_data.ccode\r\nwhere course.ccode in (select ccode from registered where StID=" + id + " and sem='" + sem + "') and course.ccode like '%" + CCode + "%'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+        //Query for Registered and search by course name
+        public DataTable getRegisteredAndNameCourses(string id, string sem, string name)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select course_data.cname, course.ccode, semester from course\r\ninner join course_data on course.ccode=course_data.ccode\r\nwhere course.ccode in (select ccode from registered where StID=" + id + " and sem='" + sem + "') and course_data.cname like '%" + name + "%'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+        //Query by course name
+        public DataTable getByNameCourses(string name)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select course_data.cname, course.ccode, semester from course\r\ninner join course_data on course.ccode=course_data.ccode\r\nwhere course_data.cname like '%" + name + "%'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+        //Query by course code
+        public DataTable getByCodeCourses(string CCode)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select course_data.cname, course.ccode, semester from course\r\ninner join course_data on course.ccode=course_data.ccode\r\nwhere course.ccode like '%" + CCode + "%'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+        //Query by course name and semester
+        public DataTable getByNameandSemesterCourses(string name, string Sem)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select course_data.cname, course.ccode, semester from course\r\ninner join course_data on course.ccode=course_data.ccode\r\nwhere course_data.cname like '%" + name + "%' and course.semester like '%" + Sem + "%'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+        //Query by course code and semester
+        public DataTable getByCodeandSemesterCourses(string CCode, string Sem)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select course_data.cname, course.ccode, semester from course\r\ninner join course_data on course.ccode=course_data.ccode\r\nwhere course.ccode like '%" + CCode + "%' and course.semester like '%\"+Sem+\"%'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+
+
+        //Logging in//
         public DataTable getInstID(string email, string password)
         {
             DataTable dt = new DataTable();
@@ -87,6 +214,7 @@ namespace LMS.Models
                 cmd.Parameters.AddWithValue("@courseName", courseName);
                 cmd.Parameters.AddWithValue("@semester", semester);
                 cmd.Parameters.AddWithValue("@courseCode", courseCode);
+                SqlCommand cmd = new SqlCommand(Q, con);
                 dt.Load(cmd.ExecuteReader());
             }
             catch (SqlException sq) { }
@@ -108,6 +236,9 @@ namespace LMS.Models
 
                 cmd.Parameters.AddWithValue("@stid", stid);
                 dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) {
+
             }
             catch (SqlException sq) { }
             finally { con.Close(); }
@@ -175,7 +306,7 @@ namespace LMS.Models
         public DataTable getungraded(string id)
         {
             DataTable dt = new DataTable();
-            string Q = "select ccode,Aname from assignment\r\nwhere assignment.ccode in(select distinct course.ccode from course where\r\ninst_ID=666)\r\nand assignment.sem in(select distinct course.semester from course where\r\ninst_ID=" + id + ")\r\nand (done=0 or done is null)";
+            string Q = "select ccode,Aname from assignment where assignment.ccode in(select distinct course.ccode from course where inst_ID=" + id + " and assignment.sem in(select distinct course.semester from course where inst_ID=" + id + ") and (done=0 or done is null))";
             try
             {
                 con.Open();
@@ -183,6 +314,7 @@ namespace LMS.Models
                 dt.Load(cmd.ExecuteReader());
             }
             catch (SqlException sq) { }
+            catch (SqlException sq) { Console.WriteLine(sq); }
             finally { con.Close(); }
             return dt;
         }
@@ -236,6 +368,7 @@ namespace LMS.Models
         public void addassignment(string ccode, string sem, string aname, string due_date)
         {
             string Q = "insert into assignment(Aname,ccode,sem,due_date)\r\nvalues('" + aname + "','" + ccode + "','" + sem + "'," + due_date + ")";
+            string Q = "insert into assignment(Aname,ccode,sem,due_date)\r\nvalues('" + aname + "','" + ccode + "','" + sem + "','" + due_date + "')";
             try
             {
                 con.Open();
@@ -274,7 +407,7 @@ namespace LMS.Models
 
         public void registerstudent(string ccode, string sem, string stid)
         {
-            string Q = "insert into registered(StID,ccode,sem)\r\nvalues('" + stid + "','" + ccode + "','" + sem + "')";
+            string Q = "insert into registered(StID,ccode,sem) values(" + stid + ",'" + ccode + "','" + sem + "')";
             try
             {
                 con.Open();
@@ -335,6 +468,18 @@ namespace LMS.Models
                 cmd.ExecuteNonQuery();
             }
             catch (SqlException sq) { }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+        public void AddStudent(string id, string name, string major, string batch, string email, string pass)
+        {
+            string Q = "insert into student(ID,Sname,Major,batch,email,pass) values(" + id + ", " + name + ", " + major + ", " + batch + ", " + email + ", " + pass + ")";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+            }
+            catch (SqlException sq) { }
             finally { con.Close(); }
         }
         public void AddTodo(string stid, string task, string ccode, string sem)
@@ -386,8 +531,78 @@ namespace LMS.Models
             catch (SqlException sq) { }
             finally { con.Close(); }
         }
+        public void CompleteTask(string stid, string task)
+        {
+            string Q = "update todo set done=1 where StID=@stid and task=@task";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.Parameters.AddWithValue("@stid", stid);
+                cmd.Parameters.AddWithValue("@task", task);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+        public string getsemester()
+        {
+            string year = DateTime.Now.ToString("yyyy");
+            string month = DateTime.Now.ToString("MM");
+            if (month == "10" || month == "11" || month == "12" || month == "01")
+            {
+                return "Fall" + year;
+            }
+            else
+            {
+                return "Spring " + year;
+            }
+        }
+        public DataTable getccode(string cname)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select ccode from course_data where cname='" + cname + "'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+        public DataTable getcoursename(string ccode)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select cname from course_data where ccode='" + ccode + "'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+        public DataTable get_ID(string email)
+        {
+            DataTable dt=new DataTable();
+            string Q = "select ID from student where email='" + email + "'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
 
     }
 
+    
 }
 
