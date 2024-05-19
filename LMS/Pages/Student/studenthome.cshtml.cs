@@ -58,6 +58,11 @@ namespace LMS.Pages.Student
 
             return RedirectToPage("./studenthome");
         }
+        public IActionResult OnPostLogout()
+        {
+            HttpContext.Session.Remove("ID");
+            return RedirectToPage("/Index");
+        }
     }
 }
 

@@ -65,5 +65,10 @@ namespace LMS.Pages.admin
             _db.RemoveCourseInstance(ccode, semester, id);
             return RedirectToPage("./adminhome");
         }
+        public IActionResult OnPostLogout()
+        {
+            HttpContext.Session.Remove("ID");
+            return RedirectToPage("/Index");
+        }
     }
 }

@@ -21,5 +21,10 @@ namespace LMS.Pages.Teacher
             dt = _db.getungraded(id);
             name = _db.getInstructorName(id);
         }
+        public IActionResult OnPostLogout()
+        {
+            HttpContext.Session.Remove("ID");
+            return RedirectToPage("/Index");
+        }
     }
 }
