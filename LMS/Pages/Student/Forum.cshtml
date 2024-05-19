@@ -1,5 +1,5 @@
 ﻿@page
-@model ForumModel
+@model LMS.Pages.Student.ForumModel
 @{
     Layout = "studentlayout.cshtml";
 }
@@ -88,8 +88,7 @@
             background-color: #fefefe;
             margin: 15% auto;
             padding: 20px;
-            width:50%;
-            
+            width: 50%;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
@@ -135,30 +134,34 @@
                 <tr>
                     <th>Threads</th>
                     <th>Courses</th>
+                    <th>View</th>
                 </tr>
             </thead>
-            <tbody>
+            @for (int i = 0; i < Model.dt.Rows.Count; i++)
+            {
+                <form method="post" asp-page-handler="View">
                 <tr>
                     <td>
-                        <a href="/Student/ForumPage">Thread 1</a>
+                        <input type="hidden" value="@Model.dt.Rows[i][0]" name="thread" />
+                        <label for="thread">@Model.dt.Rows[i][0]</label>
                     </td>
                     <td>
-                        <a>Course 1</a>
+                        <input type="hidden" value="@Model.dt.Rows[i][1]" name="ccode" />
+                        <label for="ccode">@Model.dt.Rows[i][1]</label>
+                    </td>
+
+                    <td>
+                        <input type="submit" class="btn" value="View Thread" />
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <a href="/Student/ForumPage">Thread 2</a>
-                    </td>
-                    <td>
-                        <a>Course 2</a>
-                    </td>
-                </tr>
-            </tbody>
+                </form>
+            }
         </table>
-        <div class="add-thread-button">
-            <a href="AddForumPage">Add Thread</a>
-        </div>
+    </div>
+    <div class="add-thread-button">
+        <form method="post" asp-page-handler="Add">
+            <input type="submit" value="Add thread" class="btn" />
+        </form>
     </div>
 
     <div id="filter-modal" class="modal">
@@ -169,8 +172,8 @@
                 <div class="form-group">
 
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="student" name="role" class="custom-control-input">
-                        <label class="custom-control-label" for="student">Courses taken</label>
+                        <input type="radio" id="teacher" name="role" class="custom-control-input">
+                        <label class="custom-control-label" for="teacher">Courses taught</label>
 
 
 
@@ -182,8 +185,8 @@
                             <label for="filter-title">Course Name:</label>
                             <input type="text" class="form-control" id="filter-title" name="title" required>
                         </div>
-                      
-                <button type="submit" class="btn btn-primary">Submit</button>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>

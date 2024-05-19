@@ -31,11 +31,18 @@ namespace LMS.Pages.Teacher
 
         public void OnGet()
         {
-            dt = _db.getthreadcomments(title,cocode);
-            daateuser = _db.getdatename(title, cocode);
+            title = HttpContext.Session.GetString("th");
+            dt = _db.getthreadcomments(HttpContext.Session.GetString("th"), HttpContext.Session.GetString("ccode"));
+            daateuser = _db.getdatename(HttpContext.Session.GetString("th"), HttpContext.Session.GetString("ccode"));
             date = daateuser.Rows[0][0].ToString();
             user = daateuser.Rows[0][1].ToString();
             question = daateuser.Rows[0][2].ToString();
+        }
+
+        public IActionResult OnPostComment(string comm)
+        {
+            _db.addthreadentry(HttpContext.Session.GetString("th"), HttpContext.Session.GetString("ccode"), comm);
+            return RedirectToPage("./ForumPage", new {title=this.title, cocode=this.cocode});
         }
 
     }

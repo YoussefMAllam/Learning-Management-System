@@ -1083,6 +1083,36 @@ namespace LMS.Models
             return dt;
         }
 
+        public void Addthread(string ccode,string title, string question, string posted_on)
+        {
+            string Q= "insert into thread(ccode,title,question,posted_on) values('"+ccode+"','"+title+"','"+question+"','"+posted_on+"')";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+        }
+
+        public void addthreadentry(string title,string ccode,string comment)
+        {
+            string Q = "insert into thread_entries values('" + title + "','" + ccode + "','" + comment + "')";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+        }
+
     }
 
 

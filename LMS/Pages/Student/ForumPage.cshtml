@@ -1,135 +1,240 @@
 ﻿@page
 @model LMS.Pages.Student.ForumPageModel
 @{
-    Layout = "studentlayout.cshtml";
+    Layout = "studentLayout";
+}
+<style>
+    body {
+        background-color: #f0f8ff;
+        font-family: Arial, sans-serif;
+    }
 
-}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exchange your questions!</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header class="top-bar">
-        <h1>Exchange your questions!</h1>
-    </header>
-    <main class="main-container">
-        <section class="main">
-            <header class="header">
-                <h4 class="title">Title</h4>
-                <h6>Question 1</h6>
-                <div class="bottom">
-                    <p class="timestamp">2/5/2024</p>
-                    <p class="comment-count">4 comments</p>
-                </div>
-            </header>
-            <textarea class="comment-input"></textarea>
-            <button class="add-comment-btn" aria-label="Add comment">Add Comment</button>
-            <section class="comments">
-                <article class="comment">
-                    <header class="top-comment">
-                        <hr>
-                        <p class="user">Allam</p>
-                        <p class="comment-ts">2/5/2024</p>
-                    </header>
-                    <div class="comment-content">
-                        Comment kys kys kys
-                    </div>
-                </article>
-                <article class="comment">
-                    <header class="top-comment">
-                        <hr>
-                        <p class="user">Allam</p>
-                        <p class="comment-ts">2/5/2024</p>
-                    </header>
-                    <div class="comment-content">
-                        Comment kys kys kys
-                    </div>
-                </article>
-            </section>
-        </section>
-    </main>
-</body>
-</html>
-<style> {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f7f7f7;
-}
+    h1 {
+        text-align: center;
+        color: #6495ed;
+        margin-bottom: 30px;
+        font-size: 32px;
+    }
 
-.top-bar {
-  background-color: white;
-  padding: 10px;
-  text-align: center;
-}
+    .button-container {
+        text-align: right;
+        margin-bottom: 20px;
+    }
 
-.top-bar h1 {
-  font-size: 24px;
-  color: black;
-  margin: 0;
-}
+    .table {
+        width: 100%;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
 
-.main-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
+        .table th,
+        .table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
-.main {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 700px;
-  width: 100%;
-}
+        .table th {
+            background-color: #6495ed;
+            color: #fff;
+        }
 
-.header {
-  margin-bottom: 20px;
-}
+    .add-task-button {
+        text-align: center;
+        margin-top: 20px;
+    }
 
-.header.title {
-  font-size: 18px;
-  color: #333;
-  margin-bottom: 5px;
-}
+        .add-task-button button {
+            background-color: #fff;
+            color: #6495ed;
+            border: 2px solid #6495ed;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
 
-.header h6 {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 10px;
-}
+            .add-task-button button:hover {
+                background-color: #6495ed;
+                color: #fff;
+            }
 
-.bottom {
-  display: flex;
-  align-items: center;
-  color: #666;
-}
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
 
-.bottom p {
-  margin-right: 10px;
-}
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
 
-.comment-input {
-  width: 100%;
-  height: 100px;
-  background-color: #e5f2ff;
-  border: 1px solid #91a7ff;
-  border-radius: 5px;
-  padding: 10px;
-  resize: vertical;
-}
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
 
-.add-comment-btn {
-  display
-}
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+    .btn {
+        background-color: #fff;
+        color: #6495ed;
+        border: 2px solid #6495ed;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        .btn:hover {
+            background-color: #6495ed;
+            color: #fff;
+        }
 </style>
+<body>
+    <div class="top-bar">
+        <h1 class="text-light">
+            Exchange your questions!
+        </h1>
+    </div>
+    <div class="main-container">
+        <div class="main">
+            <div class="header">
+                <h4 class="title">@Model.title</h4>
+                <h6>@Model.question</h6>
+                <div class="bottom">
+                    <p class="name">@Model.user</p>
+                    <p class="timestamp">@Model.date</p>
+                    <p class="comment-count">@Model.dt.Rows.Count.ToString()</p>
+                </div>
+            </div>
+            <div>
+                <form method="post" asp-page-handler="comment">
+                    <textarea name="comm"></textarea>
+                    <input type="submit" class="btn" value="Add Comment" />
+                </form>
+            </div>
+
+
+            <div class="comments">
+                @for (int i = 0; i < Model.dt.Rows.Count; i++)
+                {
+                    <div class="comment">
+                        <div class="top-comment">
+                        </div>
+                        <div class="comment-content">
+                            @Model.dt.Rows[i][0]
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <style>
+        body {
+            margin: 10px 60px;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        h1, h2, h3, h4, h5, h6, ol {
+            margin: 0;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+
+        textarea {
+            width: 80%;
+            height: 100px;
+            background-color: #e5f2ff;
+            border: 1px solid #91a7ff;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        button {
+            display: block;
+            margin: 10px 0;
+            background-color: lightblue;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: lightblue;
+            }
+
+        .row {
+            padding: 5px 0;
+        }
+
+        .top-bar {
+            background-color: dodgerblue;
+            padding: 10px 40px;
+        }
+
+        .main {
+            background-color: #e5f2ff;
+            padding: 10px 15px;
+            border: 1px solid #91a7ff;
+            border-radius: 5px;
+        }
+
+        .comments {
+            margin: 40px 0;
+        }
+
+        .comment {
+            margin: 10px 0;
+            background-color: #e5f2ff;
+            padding: 10px;
+            border: 1px solid #91a7ff;
+            border-radius: 5px;
+        }
+
+        .bottom, .top-comment {
+            display: flex;
+            color: black;
+            font-size: 12px;
+        }
+
+        .comment-ts {
+            padding-left: 10px;
+        }
+
+        .timestamp {
+            padding-right: 10px;
+        }
+    </style>
+</body>

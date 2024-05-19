@@ -1,8 +1,6 @@
 ﻿@page
 @model LMS.Pages.Student.AddForumPageModel
 @{
-    Layout = "studentlayout.cshtml";
-
 }
 
 
@@ -14,85 +12,74 @@
             </h1>
         </div>
         <div class="main">
-            <form class="thread-form">
+            <form class="thread-form" method="post" asp-page-handler="Add">
                 <div class="form-group">
                     <label for="title-input">Title:</label>
-                    <input type="text" id="title-input" class="title-input" placeholder="Enter thread title">
+                    <input type="text" id="title-input" class="title-input" placeholder="Enter thread title" name="title">
                 </div>
                 <div class="form-group">
                     <label for="course-code-input">Course Code:</label>
-                    <input type="text" id="course-code-input" class="course-code-input" placeholder="Enter course code">
+                    <input type="text" id="course-code-input" class="course-code-input" placeholder="Enter course code" name="ccode">
                 </div>
                 <div class="form-group">
                     <label for="questions-input">Questions:</label>
-                    <textarea id="questions-input" class="questions-input" placeholder="Enter your questions here"></textarea>
+                    <textarea id="questions-input" class="questions-input" placeholder="Enter your questions here" name="question"></textarea>
                 </div>
-                <button type="submit" class="create-thread-button">Create Thread</button>
+                <input type="submit" class="create-thread-button" value="Add Thread">
             </form>
         </div>
     </div>
 </body>
 </html>
 <style>
-    :root {
-        --primary-color: #6495ed;
-        --background-color: #f0f8ff;
-        --font-family: Arial, sans-serif;
-        --padding: 20px;
-    }
-
     body {
-        background-color: var(--background-color);
-        font-family: var(--font-family);
+        background-color: #f0f8ff;
+        font-family: Arial, sans-serif;
     }
 
     .container {
         max-width: 800px;
-        padding: var(--padding);
-    }
-
-    .top-bar {
-        text-align: center;
+        margin: 0 auto;
+        padding: 20px;
     }
 
     h1 {
-        color: var(--primary-color);
+        text-align: center;
+        color: #6495ed;
     }
 
     .main {
         display: flex;
         flex-direction: column;
         align-items: center;
-        max-width: 800px;
     }
 
     .form-group {
         display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin-bottom: var(--padding);
+        flex-direction: column;
+        margin-bottom: 20px;
+        width: 100%;
     }
 
-        .form-group label {
-            width: 20%;
-            text-align: right;
-            margin-right: 10px;
-        }
-
-    .input-field {
+    .title-input, .course-code-input {
         padding: 10px;
         font-size: 16px;
         border: 1px solid #ccc;
         border-radius: 4px;
-        width: 80%;
+        width: 100%;
     }
 
     .questions-input {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
         height: 200px;
+        width: 100%;
     }
 
     .create-thread-button {
-        background-color: var(--primary-color);
+        background-color: #6495ed;
         color: #fff;
         border: none;
         padding: 10px 20px;
@@ -105,4 +92,3 @@
             background-color: #87ceeb;
         }
 </style>
-

@@ -1,5 +1,5 @@
 ﻿@page
-@model LMS.Pages.Student.AddForumPageModel
+@model LMS.Pages.Teacher.AddForumPageModel
 @{
 }
 
@@ -12,20 +12,20 @@
             </h1>
         </div>
         <div class="main">
-            <form class="thread-form">
+            <form class="thread-form" method="post" asp-page-handler="Add">
                 <div class="form-group">
                     <label for="title-input">Title:</label>
-                    <input type="text" id="title-input" class="title-input" placeholder="Enter thread title">
+                    <input type="text" id="title-input" class="title-input" placeholder="Enter thread title" name="title">
                 </div>
                 <div class="form-group">
                     <label for="course-code-input">Course Code:</label>
-                    <input type="text" id="course-code-input" class="course-code-input" placeholder="Enter course code">
+                    <input type="text" id="course-code-input" class="course-code-input" placeholder="Enter course code" name="ccode">
                 </div>
                 <div class="form-group">
                     <label for="questions-input">Questions:</label>
-                    <textarea id="questions-input" class="questions-input" placeholder="Enter your questions here"></textarea>
+                    <textarea id="questions-input" class="questions-input" placeholder="Enter your questions here" name="question"></textarea>
                 </div>
-                <button type="submit" class="create-thread-button">Create Thread</button>
+                <input type="submit" class="create-thread-button" value="Add Thread">
             </form>
         </div>
     </div>
