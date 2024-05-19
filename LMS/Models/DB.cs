@@ -699,6 +699,7 @@ namespace LMS.Models
             }
             catch (SqlException sq) { }
             finally { con.Close(); }
+            return dt;
         }
 
         public void AddStudentfeedback( string stid, string ccode,string feedback)
@@ -729,7 +730,6 @@ namespace LMS.Models
             }
             catch (SqlException sq) { }
             finally { con.Close(); }
-            return dt;
         }
 
 
@@ -921,6 +921,169 @@ namespace LMS.Models
             }
             catch (SqlException sq) { }
             finally { con.Close(); }
+        }
+        public DataTable getdatename(string title, string ccode)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select posted_on,sname,question from thread left join student on StID=ID where title='" + title + "' and ccode='" + ccode + "'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
+        public DataTable getthreadcomments(string title, string ccode)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select thread_entries.comment from thread_entries where thread_entries.title = '" + title + "' and thread_entries.ccode = '" + ccode + "'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
+        public DataTable getfeedback(string ccode, string sem)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select feedback from registered where ccode='" + ccode + "' and sem='" + sem + "'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+            return dt;
+        }
+
+        public DataTable getstudents(string ccode, string sem)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select sname,major,id,email from student,registered where student.ID=registered.StID and ccode='" + ccode + "' and sem='" + sem + "' order by sname";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
+
+        public DataTable getallcourses()
+        {
+            DataTable dt = new DataTable();
+            string Q = "select ccode,cname from course_data";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
+
+        public DataTable getunattended(string ccode, string sem)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select sname, StID from registered left join student on registered.StID=student.ID where ccode='" + ccode + "' and sem='" + sem + "' and StID not in(select StID from exam_submissions where ccode='" + ccode + "' and sem='" + sem + "')";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
+
+        public void addexamsub(string ccode, string sem, string stid)
+        {
+            string Q = "insert into exam_submissions(ccode,sem,StID) values('" + ccode + "','" + sem + "','" + stid + "')";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+        }
+
+        public DataTable getexaminedstudents(string ccode, string sem)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select Sname, exam_submissions.StID, transcript.grade \r\nfrom exam_submissions left join student on StID=ID left join transcript on transcript.StID=exam_submissions.StID and ((transcript.ccode=exam_submissions.ccode) or (transcript.ccode is null))\r\nwhere exam_submissions.ccode='" + ccode + "' and exam_submissions.sem='" + sem + "'\r\n order by Sname";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
+
+        public void addtranscript(string ccode, string sem, string ID, string grade)
+        {
+            DataTable dt = new DataTable();
+            string Q = "insert into transcript(StID,ccode,sem,grade) values(" + ID + ",'" + ccode + "','" + sem + "'," + grade + ")";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+        }
+
+        public DataTable getthreads()
+        {
+            DataTable dt = new DataTable();
+            string Q = "select title, ccode from thread\r\n";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
         }
 
     }
