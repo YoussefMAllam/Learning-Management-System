@@ -52,7 +52,7 @@ namespace LMS.Pages
                     HttpContext.Session.SetString("ID", ID);
                     return RedirectToPage("Student/studenthome", new { id = ID });
                 }
-                else if (ID.Length==2)
+                else if (ID.Length==2||ID.Length==1)
                 {
                     HttpContext.Session.SetString("ID", ID);
                     return RedirectToPage("Admin/adminhome", new { id = ID });

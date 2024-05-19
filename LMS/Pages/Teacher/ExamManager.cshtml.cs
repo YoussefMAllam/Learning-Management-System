@@ -17,10 +17,12 @@ namespace LMS.Pages.Teacher
 
         public DataTable dt = new DataTable();
         public DataTable unattanded = new DataTable();
+        public string avg { get; set; }
         public void OnGet()
         {
             dt = _db.getexamsub(HttpContext.Session.GetString("ccode"), HttpContext.Session.GetString("sem"));
             unattanded = _db.getunattended(HttpContext.Session.GetString("ccode"), HttpContext.Session.GetString("sem"));
+            avg = _db.getexamavg(HttpContext.Session.GetString("ccode"), HttpContext.Session.GetString("sem")).Rows[0][0].ToString();
         }
 
         public IActionResult OnPostSend(string ID, string grade) {

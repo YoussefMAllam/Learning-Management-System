@@ -1,7 +1,7 @@
 ﻿@page
-@model LMS.Pages.Teacher.IndividualCourseTeacherModel
+@model LMS.Pages.admin.ExamModel
 @{
-    Layout = "teacherlayout";
+    Layout = "adminlayout";
 }
 <style>
     body {
@@ -104,37 +104,53 @@
         resize: vertical;
     }
 </style>
-<h1>@Model.aname</h1>
-<table class="table table-borderless">
+<table class="table">
     <thead>
-    <th>Student Name</th>
-    <th>Submission</th>
-    <th>ID</th>
-    <th>Grade</th>
+        <th>Course Name</th>
+        <th>Course Code</th>
+        <th>Semester</th>
+        <th>Venue</th>
+        <th>Exam Date</th>
+        <th> </th>
     </thead>
-    @for (int i = 0; i < Model._assignments.Rows.Count; i++)
-    {
-    <tr>
-        <form method="post" asp-page-handler="Done">
-              <td><input type="text" value="@Model._assignments.Rows[i][0]" readonly/></td>
-              <td><input type="text" value="@Model._assignments.Rows[i][1]" readonly /></td>
-              <td><input type="text" value="@Model._assignments.Rows[i][2]" readonly name="ID" /></td>
-               
-                @if(string.IsNullOrEmpty(Model._assignments.Rows[i][3].ToString()))
-                {
-                    <td><input type="text" placeholder="/10" name="grade" /></td>
-                    <td><button class="btn btn-success" type="submit">Done</button></td>
-                }
-                else
-                {
-                    <td>@Model._assignments.Rows[i][3]</td>
-                }
-                
-                
-        </form>
-    </tr>
-    }
- 
-</table>
-<p>Average Grade: @Model.average</p>
+    @for(int i=0;i<Model.setexams.Rows.Count;i++){
+        <tr>
+            @for(int j=0;j<Model.setexams.Columns.Count;j++){
 
+                <td>
+                    @Model.setexams.Rows[i][j]
+                </td>
+            }
+    
+          
+        </tr>
+    }
+        @for (int i = 0; i < Model.unsetexams.Rows.Count; i++)
+        {
+            <tr>
+            <form method="post" asp-page-handler="Addexam">
+                <td>
+                    <input type="hidden" value="@Model.unsetexams.Rows[i][0]" name="cname"/>
+                    <label for="cname">@Model.unsetexams.Rows[i][0]</label>
+                </td>
+                <td>
+                    <input type="hidden" value="@Model.unsetexams.Rows[i][1]" name="ccode" />
+                    <label for="ccode">@Model.unsetexams.Rows[i][0]</label>
+                </td>
+                <td>
+                    <input type="hidden" value="@Model.unsetexams.Rows[i][2]" name="sem" />
+                    <label for="sem">@Model.unsetexams.Rows[i][0]</label>
+                </td>
+                <td>
+                    <input type="text" name="venue" value="" />
+                </td>
+                <td>
+                    <input type="text" name="date" />
+                </td>
+                <td>
+                    <input type="submit" value="add" class="btn" />
+                </td>
+        </form>
+            </tr>
+        }
+</table>

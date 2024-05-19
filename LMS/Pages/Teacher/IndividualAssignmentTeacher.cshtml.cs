@@ -21,7 +21,7 @@ namespace LMS.Pages.Teacher
         {
             _db = new DB();
         }
-
+        public string average { get; set; }
 
         public void OnGet()
         {
@@ -29,6 +29,7 @@ namespace LMS.Pages.Teacher
             ccode= HttpContext.Session.GetString("ccode");
             sem= HttpContext.Session.GetString("sem");
             _assignments=_db.getassignmentsub(aname,HttpContext.Session.GetString("ccode"), HttpContext.Session.GetString("sem"));
+            average=_db.getassavg(aname,ccode,sem).Rows[0][0].ToString();
 
         }
 

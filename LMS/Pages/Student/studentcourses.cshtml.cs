@@ -23,8 +23,7 @@ namespace LMS.Pages.Student
             filter = HttpContext.Session.GetString("filter");
             id = HttpContext.Session.GetString("ID");
             if (string.IsNullOrWhiteSpace(filter))
-                dt = _db.getRegisteredCourses(id, _db.getsemester());
-            else
+                dt = _db.Getstudentcourses(id);
             {
                 switch (HttpContext.Session.GetInt32("n"))
                 {
