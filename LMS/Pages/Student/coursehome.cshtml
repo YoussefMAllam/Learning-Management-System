@@ -112,15 +112,17 @@
             <th>Material</th>
             <th> Link</th>
         </tr>
-        <tr>
+        
             @for (int i = 0; i < Model._material.Rows.Count; i++)
             {
+            <tr>
                 @for (int j = 0; j < 2; j++)
                 {
                     <td>@Model._material.Rows[i][j]</td>
                 }
+            </tr>
             }
-        </tr>
+        
 
     </table>
     <br>
@@ -129,16 +131,18 @@
             <th colspan="2">Anouncements</th>
             
         </tr>
-        <tr>
+        
             @for (int i = 0; i < Model._anouncements.Rows.Count; i++)
             {
+            <tr>
                 @for (int j = 0; j < 2; j++)
                 {
                     <td>@Model._anouncements.Rows[i][j]</td>
                 }
+            </tr>
+
             }
             
-        </tr>
 
     </table>
     <br>

@@ -124,12 +124,12 @@
   
     <th>Instructor</th>
     <th>Semester</th>
-
+    <th>No. of Enrolled</th>
     </thead>
     @for (int i = 0; i < Model._courseinstances.Rows.Count; i++)
     {
     <tr>
-        @for (int j = 0; j < 2; j++)
+        @for (int j = 0; j < 3; j++)
         {
                 <td>
                     @Model._courseinstances.Rows[i][j]
