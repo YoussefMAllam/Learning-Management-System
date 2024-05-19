@@ -301,7 +301,7 @@ namespace LMS.Models
         public DataTable getungraded(string id)
         {
             DataTable dt = new DataTable();
-            string Q = "select ccode,Aname from assignment where assignment.sem='" + getsemester() + "' and assignment.ccode in(select distinct course.ccode from course where inst_ID=" + id + " and assignment.sem in(select distinct course.semester from course where inst_ID=" + id + ") and (done=0 or done is null))";
+            string Q = "select assignment.Aname,assignment.ccode from assignment inner join course on assignment.ccode = course.ccode where exists(select* from assignment_submissions where course.inst_ID= "+id+" and assignment.sem= '"+getsemester()+"' and grade is null and assignment.ccode = assignment_submissions.ccode and assignment.Aname = assignment_submissions.Aname)";
             try
             {
                 con.Open();
