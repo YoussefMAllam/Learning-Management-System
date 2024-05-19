@@ -17,7 +17,7 @@ namespace LMS.Models
 
 
         public DB() {
-            string constr = "Data Source=DESKTOP-27HLH9T;Initial Catalog=LMS;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+            string constr = "Data Source=DESKTOP-50DDNCA;Initial Catalog=LMS;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
             con = new SqlConnection(constr);
            
            
@@ -1135,6 +1135,40 @@ namespace LMS.Models
             finally { con.Close(); }
             return dt;
         }
+        public DataTable getsubmittedassignments(string id,string ccode,string sem)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select assignment.aname,assignment.due_date,assignment_submissions.grade\r\nfrom assignment inner join assignment_submissions on assignment.Aname=assignment_submissions.Aname and assignment.ccode=assignment_submissions.ccode and assignment.sem=assignment_submissions.sem\r\nwhere StID=" + id + "and assignment.ccode='" + ccode + "' and assignment.sem='" + sem + "'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
+
+        public DataTable getunsubmittedassignments(string id,string ccode,string sem)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select aname, due_date \r\nfrom assignment \r\nwhere ccode='" + ccode + "' and sem='" + sem + "' and Aname not in(select assignment_submissions.Aname from assignment_submissions where ccode='" + ccode + "' and sem='" + sem + "' and StID=" + id + ") ";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
+
     }
 
 
