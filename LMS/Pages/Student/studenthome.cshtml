@@ -7,6 +7,7 @@
 }
 
 <style>
+
     body {
         background-color: #f0f8ff;
         font-family: Arial, sans-serif;
@@ -21,8 +22,6 @@
     h1 {
         text-align: center;
         color: #6495ed;
-        margin-bottom: 30px;
-        font-size: 32px;
     }
 
     .button-container {
@@ -37,8 +36,7 @@
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
 
-        .table th,
-        .table td {
+        .table th, .table td {
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
@@ -49,24 +47,30 @@
             color: #fff;
         }
 
-    .add-task-button {
+        .table td a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
+
+    .add-thread-button {
         text-align: center;
         margin-top: 20px;
     }
 
-        .add-task-button button {
-            background-color: #fff;
-            color: #6495ed;
-            border: 2px solid #6495ed;
+        .add-thread-button a {
+            background-color: #6495ed;
+            color: #fff;
+            border: none;
             padding: 10px 20px;
             border-radius: 4px;
             text-decoration: none;
+            display: inline-block;
             transition: background-color 0.3s ease;
         }
 
-            .add-task-button button:hover {
-                background-color: #6495ed;
-                color: #fff;
+            .add-thread-button a:hover {
+                background-color: #87ceeb;
             }
 
     .modal {
@@ -81,10 +85,10 @@
     }
 
     .modal-content {
-        width: 50%;
         background-color: #fefefe;
         margin: 15% auto;
         padding: 20px;
+        width: 50%;
         border-radius: 10px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
@@ -118,6 +122,9 @@
             color: #fff;
         }
 
+    .table td, .table th {
+        text-align: center;
+    }
 
 
 </style>
@@ -135,7 +142,7 @@
                 {
                     <tr>
                        
-                        <td>
+                        <td rowspan="3">
                             <input type="hidden" value="@Model.dt.Rows[i][0]" name="taskname"/>
                             <label for="taskname"> @Model.dt.Rows[i][0]</label>
                        
@@ -151,7 +158,8 @@
         <table>
             <div class="button-container">
                 <div class="add-task-button">
-                    <button type="button" id="add-task-link">Add task</button>
+                    <button type="button" class="btn" id="add-task-link">Add task</button>
+                   
                 </div>
             </div>
         </table>

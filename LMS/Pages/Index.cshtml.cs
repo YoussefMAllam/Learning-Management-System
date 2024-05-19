@@ -29,7 +29,7 @@ namespace LMS.Pages
 
         public void OnGet()
         {
-
+            HttpContext.Session.SetString("filter", " ");
         }
 
         public IActionResult OnPost()
