@@ -55,5 +55,15 @@ namespace LMS.Pages.admin
             _db.AddCourseInstance(ccode, semester, id);
             return RedirectToPage("./adminhome");
         }
+        public IActionResult OnPostRemoveCourse(string ccode)
+        {
+            _db.RemoveCourse(ccode);
+            return RedirectToPage("./adminhome");
+        }
+        public IActionResult OnPostRemoveCourseInstance(string ccode, string semester, string id)
+        {
+            _db.RemoveCourseInstance(ccode, semester, id);
+            return RedirectToPage("./adminhome");
+        }
     }
 }

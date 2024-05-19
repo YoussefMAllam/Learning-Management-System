@@ -17,7 +17,7 @@ namespace LMS.Models
 
 
         public DB() {
-            string constr = " Data Source =DESKTOP-50DDNCA; Initial Catalog = LMS; Integrated Security = True; TrustServerCertificate = True";
+            string constr = "Data Source=DESKTOP-27HLH9T;Initial Catalog=LMS;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
             con = new SqlConnection(constr);
            
            
@@ -586,6 +586,42 @@ namespace LMS.Models
             catch (SqlException sq) { }
             finally { con.Close(); }
         }
+        public void RemoveCourse(string ccode)
+        {
+            string Q = "delete from course_data where ccode='"+ccode+"'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+        public void RemoveCourseInstance(string ccode, string semester, string id)
+        {
+            string Q = "delete from course where ccode='"+ccode+"' and semester='"+semester+"' and inst_ID="+id;
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+        public void RemoveAllCourseInstances(string ccode)
+        {
+            string Q = "delete from course where ccode='"+ccode+"'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }        
         //END OF ADMIN HOME FUNCTIONS
 
         //ADMIN EDIT STUDENTS
@@ -696,6 +732,7 @@ namespace LMS.Models
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
             }
             catch (SqlException sq) { }
             finally { con.Close(); }
@@ -833,7 +870,6 @@ namespace LMS.Models
             finally { con.Close(); }
             return dt;
         }
-
         public DataTable getstudentname(string stID)
         {
             DataTable dt = new DataTable();
