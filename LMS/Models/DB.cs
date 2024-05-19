@@ -426,9 +426,9 @@ namespace LMS.Models
             finally { con.Close(); }
         }
 
-        public void addexam(string ccode, string sem, string venue, string proctor, string date)
+        public void addexam(string ccode, string sem, string venue, string date)
         {
-            string Q = "insert into exam(ccode,sem,venue,proctor_ID,exam_date)\r\nvalues('" + ccode + "','" + sem + "','" + venue + "','" + proctor + "','" + date + "')";
+            string Q = "insert into exam(ccode,sem,venue,exan_date)\r\nvalues('" + ccode + "','" + sem + "','" + venue + "','" + date + "')";
             try
             {
                 con.Open();
@@ -1227,8 +1227,43 @@ namespace LMS.Models
             return dt;
         }
 
+        public DataTable getallexams()
+        {
+            DataTable dt=new DataTable();
+            string Q = "select cname ,exam.ccode, exam.sem, exam.venue, exam.exan_date from exam inner join course_data on course_data.ccode=exam.ccode where exam.sem='"+getsemester()+"'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+
+        }
+
+        public DataTable tobesetexams()
+        {
+            DataTable dt = new DataTable();
+            string Q = "select cname,course.ccode, semester from course inner join course_data on course.ccode = course_data.ccode where semester = '"+getsemester()+"' and course.ccode not in(select exam.ccode from exam where sem = '"+getsemester()+"')";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+
+        }
+
     }
 
 
 }
-

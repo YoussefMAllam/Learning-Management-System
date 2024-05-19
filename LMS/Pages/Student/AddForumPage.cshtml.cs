@@ -23,7 +23,7 @@ namespace LMS.Pages.Student
         {
             string current_date = DateTime.Now.ToString();
             _db.Addthread(ccode, title, question, current_date);
-            return RedirectToPage("./teacherforum");
+            return RedirectToPage("./Forum");
         }
     }
 }
