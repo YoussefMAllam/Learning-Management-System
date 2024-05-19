@@ -157,10 +157,12 @@
                 </form>
             }
         </table>
-        <div class="add-thread-button">
-            <a href="AddForumPage">Add Thread</a>
-        </div>
     </div>
+    <div class="add-thread-button">
+            <form method="post" asp-page-handler="Add">
+                <input type="submit" value="Add Thread" class="btn"/>
+            </form>
+        </div>
 
     <div id="filter-modal" class="modal">
         <div class="modal-content">

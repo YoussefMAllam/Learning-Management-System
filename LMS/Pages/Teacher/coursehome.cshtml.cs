@@ -13,6 +13,7 @@ namespace LMS.Pages.Teacher
     {
         private DB _db;
         public DataTable _material = new DataTable();
+        public DataTable _dt=new DataTable();
         public coursehomeModel()
         {
             _db = new DB();
@@ -30,7 +31,13 @@ namespace LMS.Pages.Teacher
 
         public IActionResult OnPostStudent(string email)
         {
-            string id= _db.get_ID(email).Rows[0][0].ToString();
+            
+            _dt= _db.get_ID(email);
+            if (_dt.Rows.Count<1)
+            {
+                return RedirectToPage("./coursehome");
+            }
+            string id = _dt.Rows[0][0].ToString();
             ccode=HttpContext.Session.GetString("ccode");
             sem=HttpContext.Session.GetString("sem");
             _db.registerstudent(ccode,sem,id);
