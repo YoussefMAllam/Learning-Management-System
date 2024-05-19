@@ -12,10 +12,19 @@ namespace LMS.Pages.Guest
     {
         private DB _db;
         public DataTable dt = new DataTable();
+        public DataTable _material = new DataTable();
+        
         public void OnGet()
         {
             _db = new DB();
             dt = _db.getallcourses();
+
+        }
+        public IActionResult OnPostViewmaterial(string code)
+        {
+            HttpContext.Session.SetString("ccode",code);
+           
+            return RedirectToPage("/Guest/Viewmaterialcshtml");
         }
     }
 }

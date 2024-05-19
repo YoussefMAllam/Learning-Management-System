@@ -1,5 +1,5 @@
 ﻿@page
-@model LMS.Pages.Guest.AllCoursesModel
+@model LMS.Pages.Guest.ViewmaterialcshtmlModel
 @{
     Layout = "guestlayout";
 }
@@ -118,29 +118,20 @@
             color: #fff;
         }
 </style>
+<h1>Material for  @Model.ccode</h1>
 
 <table class="table table-borderless">
     <thead>
-    <th>Course Code</th>
-    <th>Course Name</th>
-    <th> </th>
+    <th>Material Name</th>
+    <th>Material Type</th>
+  
     </thead>
-    @for(int i=0;i<Model.dt.Rows.Count;i++)
-    { <form method="post" asp-page-handler="Viewmaterial">
+    @for (int i = 0; i < Model._material.Rows.Count; i++)
+    {
         <tr>
-            <td>
-                
-                    <input type="hidden" name="code" value="@Model.dt.Rows[i][0]" />
-                    <label for=" code">@Model.dt.Rows[i][0]</label>
-            </td>
-               
-            <td>@Model.dt.Rows[i][1]</td>
-            
-            <td><input type="submit" value="View Material"/></td>
+            <td>@Model._material.Rows[i][0]</td>
+            <td>@Model._material.Rows[i][1]</td>
+           
         </tr>
-    </form>
-
     }
-    
 </table>
-
