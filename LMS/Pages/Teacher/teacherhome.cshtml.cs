@@ -9,6 +9,7 @@ namespace LMS.Pages.Teacher
     {
         private DB _db;
         public DataTable dt { get; set; }
+        public DataTable name { get; set; }    
         public teacherhomeModel()
         {
             _db = new DB();
@@ -18,7 +19,7 @@ namespace LMS.Pages.Teacher
         {
             id=HttpContext.Session.GetString("ID");
             dt = _db.getungraded(id);
-           
+            name = _db.getInstructorName(id);
         }
     }
 }

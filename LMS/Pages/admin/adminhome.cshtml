@@ -118,7 +118,9 @@
     <button class="btn"><a id="removeinstructor-link">Remove Instructor</a></button>
     <button class="btn"><a id="removeadmin-link">Remove Admin</a></button>
     <button class="btn"><a id="addcourse-link">Add New Course Data</a></button>
-    <button class="btn"><a id="addinstance-link">Add Course</a></button>
+    <button class="btn"><a id="addinstance-link">Add Course</a></button><br /><br />
+    <button class="btn"><a id="removecourse-link">Remove Course Data</a></button>
+    <button class="btn"><a id="removeinstance-link">Remove Course</a></button>
 </div>
 </div>
 
@@ -277,11 +279,6 @@
           </div>
     </div>
 
-
-
-
-
-
 <div id="addinstance-modal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
@@ -304,6 +301,43 @@
         </form>
     </div>
 </div>
+<div id="removecourse-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Remove Entire Course Data</h2>
+
+        <form method="post" enctype="multipart/form-data" asp-page-handler="RemoveCourse">
+            <div class="form-group">
+                <label for="course-name">Course Code</label>
+                <input type="text" class="form-control" id="ccode" name="ccode" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+<div id="removeinstance-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Remove Course</h2>
+
+        <form method="post" enctype="multipart/form-data" asp-page-handler="RemoveCourseInstance">
+            <div class="form-group">
+                <label for="course-name">Course Code</label>
+                <input type="text" class="form-control" id="ccode" name="ccode" required>
+            </div>
+            <div class="form-group">
+                <label for="course-id">Semester</label>
+                <textarea class="form-control" id="semester" name="semester" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="course-id">Instructor ID</label>
+                <textarea class="form-control" id="id" name="id" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
     </div>
   
  <script>

@@ -20,7 +20,7 @@ namespace LMS.Pages.admin
         public IActionResult OnPostChangePassword(string id, string password)
         {
             _db.ChangeAdminPassword(id, password);
-            return RedirectToPage("./student");
+            return RedirectToPage("./admins");
         }
     }
 }

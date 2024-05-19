@@ -21,7 +21,7 @@ namespace LMS.Pages.Teacher
         public void OnGet()
         {
             ID =HttpContext.Session.GetString("ID");
-            dt=_db.getIcourses(ID);
+            dt=_db.getIcourses(ID,_db.getsemester());
         }
         public IActionResult OnPostSelect(string coursedata)
         {

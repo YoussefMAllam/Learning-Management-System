@@ -17,7 +17,7 @@ namespace LMS.Models
 
 
         public DB() {
-            string constr = " Data Source =DESKTOP-50DDNCA; Initial Catalog = LMS; Integrated Security = True; TrustServerCertificate = True";
+            string constr = "Data Source=DESKTOP-27HLH9T;Initial Catalog=LMS;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
             con = new SqlConnection(constr);
            
            
@@ -275,12 +275,9 @@ namespace LMS.Models
         }
 
 
-        public DataTable getIcourses(string id) {
+        public DataTable getIcourses(string id, string sem) {
             DataTable dt = new DataTable();
-            string Q = "select course_data.cname, transcript.ccode, transcript.sem, course_data.credits, transcript.grade " +
-                 "from transcript " +
-                 "inner join course_data on transcript.ccode = course_data.ccode " +
-                 "where transcript.StID = @studentId";
+            string Q = "select course_data.cname,course.ccode,course.semester,count(StID)\r\nfrom registered,course,instructor,course_data\r\nwhere \r\n\tcourse.ccode=registered.ccode and \r\n\tcourse.semester=registered.sem and \r\n\tcourse.inst_ID=instructor.ID and \r\n\tcourse_data.ccode=course.ccode and\r\n\tinst_ID="+id+"\r\n and course.semester='"+sem+"'group by course.ccode,course.semester, instructor.Iname,course_data.cname";
             try
             {
                 con.Open();
@@ -369,9 +366,9 @@ namespace LMS.Models
         }
 
         //Teacher Manipulation Queries//
-        public void addassignment(string ccode, string sem, string aname, string due_date,string description)
+        public void addassignment(string ccode, string sem, string aname, string due_date,string descript)
         {
-            string Q = "insert into assignment(Aname,ccode,sem,due_date)\r\nvalues('" + aname + "','" + ccode + "','" + sem + "'," + due_date + ")";
+            string Q = "insert into assignment(Aname,ccode,sem,due_date,descript)\r\nvalues('" + aname + "','" + ccode + "','" + sem + "','" + due_date + "','"+descript+"')";
             
             try
             {
@@ -586,6 +583,42 @@ namespace LMS.Models
             catch (SqlException sq) { }
             finally { con.Close(); }
         }
+        public void RemoveCourse(string ccode)
+        {
+            string Q = "delete from course_data where ccode='"+ccode+"'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+        public void RemoveCourseInstance(string ccode, string semester, string id)
+        {
+            string Q = "delete from course where ccode='"+ccode+"' and semester='"+semester+"' and inst_ID="+id;
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }
+        public void RemoveAllCourseInstances(string ccode)
+        {
+            string Q = "delete from course where ccode='"+ccode+"'";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sq) { }
+            finally { con.Close(); }
+        }        
         //END OF ADMIN HOME FUNCTIONS
 
         //ADMIN EDIT STUDENTS
@@ -696,6 +729,7 @@ namespace LMS.Models
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
             }
             catch (SqlException sq) { }
             finally { con.Close(); }
@@ -833,7 +867,6 @@ namespace LMS.Models
             finally { con.Close(); }
             return dt;
         }
-
         public DataTable getstudentname(string stID)
         {
             DataTable dt = new DataTable();
@@ -1086,6 +1119,22 @@ namespace LMS.Models
             return dt;
         }
 
+        public DataTable getInstructorName(string id)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select Iname from instructor where ID="+id;
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
         public DataTable getsubmittedassignments(string id,string ccode,string sem)
         {
             DataTable dt = new DataTable();
