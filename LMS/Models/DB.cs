@@ -1119,6 +1119,22 @@ namespace LMS.Models
             return dt;
         }
 
+        public DataTable getInstructorName(string id)
+        {
+            DataTable dt = new DataTable();
+            string Q = "select Iname from instructor where ID="+id;
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Q, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException sq)
+            {
+            }
+            finally { con.Close(); }
+            return dt;
+        }
     }
 
 
