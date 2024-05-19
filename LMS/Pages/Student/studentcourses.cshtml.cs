@@ -27,9 +27,9 @@ namespace LMS.Pages.Student
             MyProperty = coursedata;
 
 
-            string ccode = HttpContext.Session.GetString("ccode");
-            string sem = HttpContext.Session.GetString("sem");
-            return RedirectToPage("./coursehome", new { ccode, sem });
+            HttpContext.Session.SetString("ccode",_db.getccode(coursedata).Rows[0][0].ToString());
+            HttpContext.Session.SetString("sem",_db.getsemester());
+            return RedirectToPage("./coursehome");
         }
 
     }
