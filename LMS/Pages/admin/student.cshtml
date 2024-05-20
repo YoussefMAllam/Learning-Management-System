@@ -152,4 +152,12 @@
 
     }
 </table>
-
+<div class="chart-container" width="300" height="100">
+    <canvas id="barChart"></canvas>
+</div>
+<script type="module">
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var ctx = document.getElementById('barChart');
+        var myChart = new Chart(ctx, @Html.Raw(Model.ChartJson) );
+    });
+</script>
