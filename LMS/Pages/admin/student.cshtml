@@ -122,6 +122,7 @@
     <th>Student Name</th>
     <th>ID</th>
     <th>Email</th>
+    <th>Major</th>
     <th>New Password</th>
     <th>Change Password</th>
     </thead>
@@ -140,6 +141,10 @@
                 <td>
                 <input type="hidden" name="email" value="@Model._students.Rows[i][2]" readonly />
                 <label for="email">@Model._students.Rows[i][2]</label>
+                </td>
+                <td>
+                <input type="hidden" name="Major" value="@Model._students.Rows[i][3]" readonly />
+                <label for="Major">@Model._students.Rows[i][3]</label>
                 </td>
                 <td>
                     <input type="text" id="newpass" name="password" />

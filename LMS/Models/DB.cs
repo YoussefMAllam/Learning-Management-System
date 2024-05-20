@@ -624,7 +624,7 @@ namespace LMS.Models
         public DataTable getAllStudents()
         {
             DataTable dt = new DataTable();
-            string Q = "select Sname,ID,email from student";
+            string Q = "select Sname,ID,email,Major from student";
             try
             {
                 con.Open();
