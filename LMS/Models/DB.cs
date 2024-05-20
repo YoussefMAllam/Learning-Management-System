@@ -18,7 +18,7 @@ namespace LMS.Models
 
         public DB()
         {
-            string constr = "Data Source=DESKTOP-27HLH9T;Initial Catalog=LMS;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+            string constr = "Data Source=G15;Initial Catalog=LMS;Integrated Security=True;Encrypt=False;TrustServerCertificate=True";
             con = new SqlConnection(constr);
 
 
@@ -1170,7 +1170,7 @@ namespace LMS.Models
 
         public void Addthread(string ccode, string title, string question, string posted_on)
         {
-            string Q = "insert into thread(ccode,title,question,posted_on) values('" + ccode + "','" + title + "','" + question + "'," + posted_on + ")";
+            string Q = "insert into thread(ccode,title,question,posted_on) values('" + ccode + "','" + title + "','" + question + "','" + posted_on + "')";
             try
             {
                 con.Open();
