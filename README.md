@@ -27,7 +27,7 @@
 ## 🚀 Installation & Setup
 
 
-- git clone https://github.com/Aml-Ismail/Learning-Management-System-Website.git
+- Git clone https://github.com/YoussefMAllam/Learning-Management-System.git
 
 
 
